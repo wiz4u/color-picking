@@ -8,7 +8,9 @@
     var changeCameraElement = document.getElementsByClassName('change-camera');
     var videoElement = document.getElementById('video');
     var videoSourceInfo = [];
+    var audioSourceInfo = [];
     var currentVideoSourceInfoId = null;
+    var currentAudioSourceInfoId = null;
     var stream = null;
 
     var gotSources = function (sourceInfos) {
@@ -16,10 +18,16 @@
             var sourceInfo = sourceInfos[i];
             if (sourceInfo.kind === 'video') {
                 videoSourceInfo.push(sourceInfo.id);
+            } else if (sourceInfo.kind === 'audio') {
+                audioSourceInfo.push(sourceInfo.id);
             }
         }
+
         if (videoSourceInfo.length) {
             currentVideoSourceInfoId = 0;
+        }
+        if (audioSourceInfo.length) {
+            currentAudioSourceInfoId = 0;
         }
 
         start();
@@ -51,6 +59,9 @@
         }
 
         var constraints = {
+            audio: {
+                optional: [{sourceId: currentAudioSourceInfoId}]
+            },
             video: {
                 optional: [{sourceId: currentVideoSourceInfoId}]
             }
