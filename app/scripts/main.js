@@ -24,7 +24,8 @@
         }
 
         if (videoSourceInfo.length) {
-            currentVideoSourceInfoId = 0;
+            // In general, rear camera is last one.
+            currentVideoSourceInfoId = videoSourceInfo.length - 1;
         }
         if (audioSourceInfo.length) {
             currentAudioSourceInfoId = 0;
@@ -38,6 +39,8 @@
         if (numSource) {
             currentVideoSourceInfoId = (currentVideoSourceInfoId + 1) % numSource;
         }
+
+    console.log(numSource, currentVideoSourceInfoId);
 
         start();
     };
@@ -58,12 +61,14 @@
             stream.stop();
         }
 
+        var audioSourceId = audioSourceInfo[currentAudioSourceInfoId];
+        var videoSourceId = videoSourceInfo[currentVideoSourceInfoId];
         var constraints = {
             audio: {
-                optional: [{sourceId: currentAudioSourceInfoId}]
+                optional: [{sourceId: audioSourceId}]
             },
             video: {
-                optional: [{sourceId: currentVideoSourceInfoId}]
+                optional: [{sourceId: videoSourceId}]
             }
         };
 
@@ -76,6 +81,6 @@
         window.MediaStreamTrack.getSources(gotSources);
     }
 
-    changeCameraElement[0].onchange = changeCamera;
+    changeCameraElement[0].onclick = changeCamera;
 
 })();
