@@ -13,6 +13,8 @@
     var currentAudioSourceInfoId = null;
     var stream = null;
 
+    var canChangeCamera = false;
+
     var gotSources = function (sourceInfos) {
         for (var i = 0; i !== sourceInfos.length; ++i) {
             var sourceInfo = sourceInfos[i];
@@ -61,26 +63,36 @@
             stream.stop();
         }
 
-        var audioSourceId = audioSourceInfo[currentAudioSourceInfoId];
-        var videoSourceId = videoSourceInfo[currentVideoSourceInfoId];
-        var constraints = {
-            audio: {
-                optional: [{sourceId: audioSourceId}]
-            },
-            video: {
-                optional: [{sourceId: videoSourceId}]
-            }
-        };
+        var constraints = null;
+        if (canChangeCamera) {
+            var audioSourceId = audioSourceInfo[currentAudioSourceInfoId];
+            var videoSourceId = videoSourceInfo[currentVideoSourceInfoId];
+            constraints = {
+                audio: {
+                    optional: [{sourceId: audioSourceId}]
+                },
+                video: {
+                    optional: [{sourceId: videoSourceId}]
+                }
+            };
+        } else {
+            constraints = {
+                audio: true,
+                video: true
+            };
+        }
 
         navigator.getUserMedia(constraints, successCallback, errorCallback);
     };
 
-    if (typeof window.MediaStreamTrack === 'undefined'){
+    if (typeof window.MediaStreamTrack === 'undefined' ||
+        typeof window.MediaStreamTrack.getSources === 'undefined'){
         window.alert('This browser does not support MediaStreamTrack.\n\nTry Chrome Canary.');
+        start();
     } else {
+        canChangeCamera = true;
         window.MediaStreamTrack.getSources(gotSources);
+        changeCameraElement[0].onclick = changeCamera;
     }
-
-    changeCameraElement[0].onclick = changeCamera;
 
 })();
