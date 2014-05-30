@@ -42,8 +42,6 @@
             currentVideoSourceInfoId = (currentVideoSourceInfoId + 1) % numSource;
         }
 
-    console.log(numSource, currentVideoSourceInfoId);
-
         start();
     };
 
