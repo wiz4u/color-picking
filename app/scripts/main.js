@@ -3,7 +3,8 @@
 
     navigator.getUserMedia = navigator.getUserMedia ||
                              navigator.webkitGetUserMedia ||
-                             navigator.mozGetUserMedia;
+                             navigator.mozGetUserMedia ||
+                             navigator.msGetUserMedia;
 
     var changeCameraElement = document.getElementsByClassName('change-camera');
     var videoElement = document.getElementById('video');
