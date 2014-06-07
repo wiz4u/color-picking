@@ -2,15 +2,23 @@
     'use strict';
 
     // camera
-    var videoElement = document.getElementById('video');
-    var camera = new window.CP.Camera(videoElement, function () {
+    var camera = new window.CP.Camera(null, function () {
         camera.initialize();
     });
 
+    // game view
+    var gameView = new window.CP.GameView(
+        document.getElementById('game_view'),
+        camera.getElement());
+
     // change camera button
-    var changeCameraElement = document.getElementsByClassName('change-camera');
-    changeCameraElement[0].onclick = function () {
+    $('.change-camera').on('click', function() {
         camera.changeCamera();
-    };
+    });
+
+    // start game button
+    $('.start-game').on('click', function () {
+        gameView.start();
+    });
 
 })();

@@ -1,13 +1,11 @@
 (function (CP) {
     'use strict';
 
-    navigator.getUserMedia = navigator.getUserMedia ||
-                             navigator.webkitGetUserMedia ||
-                             navigator.mozGetUserMedia ||
-                             navigator.msGetUserMedida;
-
     var Camera = function (element, callback) {
         this.element = element || document.createElement('video');
+        this.element.setAttribute('muted', 'true');
+        this.element.setAttribute('autoplay', 'true');
+
         this.stream = null;
 
         this.videoSourceInfo = [];
