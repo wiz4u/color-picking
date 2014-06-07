@@ -50,8 +50,19 @@
 
             <div class="row">
                 <div class="col-xs-12">
-                    <video id="video" muted autoplay></video>
-                    <button class="btn btn-block btn-primary change-camera">Change Camera</button>
+                    <div class="game-view-wrapper">
+                        <canvas id="game_view"></canvas>
+                        <div class="count-pane-wrapper">
+                            <div class="count-pane"><span>1</span></div>
+                            <div class="count-pane"><span>2</span></div>
+                            <div class="count-pane"><span>3</span></div>
+                        </div>
+                    </div>
+                    <div class="btn-group btn-group-justified">
+                        <a class="btn btn-info change-camera">Change Camera</a>
+                        <a class="btn btn-primary pick">Pick</a>
+                        <a class="btn btn-info start-game">Start</a>
+                    </div>
                 </div>
             </div>
 
@@ -94,6 +105,10 @@
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/shim.js"></script>
+        <script src="scripts/camera.js"></script>
+        <script src="scripts/game.js"></script>
+        <script src="scripts/game-view.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>
