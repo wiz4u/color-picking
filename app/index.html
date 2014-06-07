@@ -24,21 +24,40 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-
         <div class="container">
-            <div class="header">
-                <h3 class="text-muted">color picking</h3>
-            </div>
+
+            <header class="navbar navbar-static-top navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Color Picking</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#">About</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </header>
 
             <div class="row">
-                <video id="video" muted autoplay></video>
-                <button class="btn btn-block btn-primary change-camera">Change Camera</button>
+                <div class="col-xs-12">
+                    <video id="video" muted autoplay></video>
+                    <button class="btn btn-block btn-primary change-camera">Change Camera</button>
+                </div>
             </div>
 
-            <div class="footer">
+            <footer>
                 <p>&copy; 2014 <a href="//twitter.com/yaeda">@yaeda</a></p>
-            </div>
+            </footer>
 
         </div>
 
