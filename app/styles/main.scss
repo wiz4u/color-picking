@@ -114,7 +114,10 @@ footer {
     margin: 0;
     text-align: right;
     font-size: 3em;
-    text-shadow: 1px 1px 5px white;
+    text-shadow:  1px  1px 1px white,
+                  1px -1px 1px white,
+                 -1px -1px 1px white,
+                 -1px  1px 1px white;
 
     @media screen and (max-width: 768px) {
         font-size: 2em;

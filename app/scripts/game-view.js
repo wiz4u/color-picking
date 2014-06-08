@@ -28,8 +28,52 @@
         this.maskCanvas.height = size;
     };
 
+
+    var buildColorString = function (rgb, type) {
+        switch (type) {
+        default:
+        case 'rgba':
+            return 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', 1)';
+        case '#':
+            var r = rgb.r.toString(16); r = r.length === 2 ? r : '0' + r;
+            var g = rgb.g.toString(16); g = g.length === 2 ? g : '0' + g;
+            var b = rgb.b.toString(16); b = b.length === 2 ? b : '0' + b;
+            return '#' + r + g + b;
+        }
+    };
+
+    var calcComplementaryColor = function (rgb) {
+        var r = rgb.r, g = rgb.g, b = rgb.b;
+        var maxmin = Math.max(r, g, b) + Math.min(r, g, b);
+        return {r: maxmin - r, g: maxmin - g, b: maxmin - b};
+    };
+
+    var getCenterColor = function (ctx, centerX, centerY, radius) {
+        var len = radius * 2;
+        var area = len * len;
+        var imageData = ctx.getImageData(centerX - radius, centerY - radius, len, len);
+        var numSample = area > 100 ? 100 : area;
+        var numStep = Math.floor(area / numSample);
+        var r = 0, g = 0, b = 0, j = 0;
+        for (var i = 0, l = len * len; i < l; i += numStep) {
+            r += imageData.data[4 * i + 0];
+            g += imageData.data[4 * i + 1];
+            b += imageData.data[4 * i + 2];
+            j++;
+        }
+
+        // normalize
+        r = Math.floor(r / j);
+        g = Math.floor(g / j);
+        b = Math.floor(b / j);
+
+        return {r: r, g: g, b: b};
+    };
+
     GameView.prototype.update = function () {
         var ctx = this.ctx;
+        var centerX = this.canvas.width / 2;
+        var centerY = this.canvas.height / 2;
 
         // crop camera center
         var cS = this.canvas.width;
@@ -44,9 +88,44 @@
         if (this.showColor) {
             ctx.fillStyle = this.color;
             ctx.beginPath();
-            ctx.arc(cS / 2, cS / 2, cS / 3, 0, Math.PI * 2);
+            ctx.arc(centerX, centerY, cS / 3, 0, Math.PI * 2);
             ctx.rect(cS, 0, -1 * cS, cS);
             ctx.fill();
+        }
+
+        // show color : center
+        if (this.showColor) {
+            var centerColor = getCenterColor(ctx, centerX, centerY, cS / 20);
+            ctx.fillStyle = buildColorString(centerColor);
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = this.color;
+            ctx.stroke();
+
+            // doughnut style
+            /*
+            var centerColor = getCenterColor(ctx, centerX, centerY, cS / 20);
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
+            ctx.lineWidth = cS / 40;
+            ctx.strokeStyle = buildColorString(centerColor);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, cS / 20 - cS / 80, 0, Math.PI * 2);
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = this.color;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, cS / 20 + cS / 80, 0, Math.PI * 2);
+            ctx.stroke();
+            */
         }
 
         // time
@@ -76,8 +155,6 @@
         // choose color
         this.color = game.getColor();
         this.showColor = true;
-
-        //
     };
 
     // Export
