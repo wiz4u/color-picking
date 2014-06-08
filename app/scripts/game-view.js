@@ -13,6 +13,8 @@
         this.colorRadius = 0;
         this.color = 'rgba(0, 0, 0, 0)';
 
+        this.game = null;
+
         this.layout();
         this.update();
     };
@@ -47,26 +49,32 @@
             ctx.fill();
         }
 
+        // time
+        if (this.game) {
+            var time = this.game.getElapsedTimeMs() / 1000;
+            $('#elapsed_time').text(time.toFixed(2));
+        }
+
         // call next frame
         this.requestId = window.requestAnimationFrame(this.update.bind(this));
     };
 
-    var getRandomColor = function () {
-        var r = Math.floor(Math.random() * 256);
-        var g = Math.floor(Math.random() * 256);
-        var b = Math.floor(Math.random() * 256);
-        return 'rgba(' + r + ', ' +  g + ', ' + b + ', 1)';
-    };
+    GameView.prototype.start = function (game) {
+        this.game = game;
 
-    GameView.prototype.start = function () {
+        // count-down end callback
+        var _countdownEnd = function () {
+            $('.count-pane-wrapper').removeClass('active');
+            game.start();
+        };
+
         // start count down
         $('.count-pane-wrapper').addClass('active');
-        setTimeout(function () {
-            $('.count-pane-wrapper').removeClass('active');
-        }, 2000);
+        // TODO : use animationEnd event with browser prefix
+        setTimeout(_countdownEnd, 1500);
 
         // choose color
-        this.color = getRandomColor();
+        this.color = game.getColor();
         this.showColor = true;
 
         //
