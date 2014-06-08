@@ -105,3 +105,18 @@ footer {
     from { transform: scale(5); opacity: 0; }
     to   { transform: scale(1); opacity: 1;}
 }
+
+#elapsed_time {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: .5em;
+    margin: 0;
+    text-align: right;
+    font-size: 3em;
+    text-shadow: 1px 1px 5px white;
+
+    @media screen and (max-width: 768px) {
+        font-size: 2em;
+    }
+}

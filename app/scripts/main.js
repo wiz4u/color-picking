@@ -18,7 +18,8 @@
 
     // start game button
     $('.start-game').on('click', function () {
-        gameView.start();
+        var game = new window.CP.Game();
+        gameView.start(game);
     });
 
 })();
