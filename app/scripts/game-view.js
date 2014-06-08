@@ -6,12 +6,11 @@
         this.ctx = this.canvas.getContext('2d');
         this.video = video;
 
-        this.maskCanvas = document.createElement('canvas');
-        this.maskCtx = this.maskCanvas.getContext('2d');
-
         this.showColor = false;
-        this.colorRadius = 0;
-        this.color = 'rgba(0, 0, 0, 0)';
+        this.updatePickingColor = false;
+        this.color = {r: 0, g: 0, b: 0};
+        this.colorString = CP.ColorUtil.buildColorString(this.color);
+        this.pickingColor = {r: 0, g: 0, b: 0};
 
         this.game = null;
 
@@ -24,29 +23,8 @@
         var size = $(this.canvas).width();
         this.canvas.width = size;
         this.canvas.height = size;
-        this.maskCanvas.width = size;
-        this.maskCanvas.height = size;
     };
 
-
-    var buildColorString = function (rgb, type) {
-        switch (type) {
-        default:
-        case 'rgba':
-            return 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', 1)';
-        case '#':
-            var r = rgb.r.toString(16); r = r.length === 2 ? r : '0' + r;
-            var g = rgb.g.toString(16); g = g.length === 2 ? g : '0' + g;
-            var b = rgb.b.toString(16); b = b.length === 2 ? b : '0' + b;
-            return '#' + r + g + b;
-        }
-    };
-
-    var calcComplementaryColor = function (rgb) {
-        var r = rgb.r, g = rgb.g, b = rgb.b;
-        var maxmin = Math.max(r, g, b) + Math.min(r, g, b);
-        return {r: maxmin - r, g: maxmin - g, b: maxmin - b};
-    };
 
     var getCenterColor = function (ctx, centerX, centerY, radius) {
         var len = radius * 2;
@@ -86,7 +64,7 @@
 
         // show color : fill outside of circle
         if (this.showColor) {
-            ctx.fillStyle = this.color;
+            ctx.fillStyle = this.colorString;
             ctx.beginPath();
             ctx.arc(centerX, centerY, cS / 3, 0, Math.PI * 2);
             ctx.rect(cS, 0, -1 * cS, cS);
@@ -95,8 +73,11 @@
 
         // show color : center
         if (this.showColor) {
-            var centerColor = getCenterColor(ctx, centerX, centerY, cS / 20);
-            ctx.fillStyle = buildColorString(centerColor);
+            if (this.updatePickingColor) {
+                this.pickingColor = getCenterColor(ctx, centerX, centerY, cS / 20);
+            }
+
+            ctx.fillStyle = CP.ColorUtil.buildColorString(this.pickingColor);
             ctx.beginPath();
             ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
             ctx.fill();
@@ -104,7 +85,7 @@
             ctx.beginPath();
             ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
             ctx.lineWidth = 3;
-            ctx.strokeStyle = this.color;
+            ctx.strokeStyle = this.colorString;
             ctx.stroke();
 
             // doughnut style
@@ -154,7 +135,17 @@
 
         // choose color
         this.color = game.getColor();
+        this.colorString = CP.ColorUtil.buildColorString(this.color);
         this.showColor = true;
+        this.updatePickingColor = true;
+    };
+
+    GameView.prototype.stop = function () {
+        this.updatePickingColor = false;
+    };
+
+    GameView.prototype.getPickingColor = function () {
+        return this.pickingColor;
     };
 
     // Export
