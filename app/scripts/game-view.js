@@ -6,11 +6,7 @@
         this.ctx = this.canvas.getContext('2d');
         this.video = video;
 
-        this.maskCanvas = document.createElement('canvas');
-        this.maskCtx = this.maskCanvas.getContext('2d');
-
         this.showColor = false;
-        this.colorRadius = 0;
         this.color = 'rgba(0, 0, 0, 0)';
 
         this.game = null;
@@ -24,9 +20,6 @@
         var size = $(this.canvas).width();
         this.canvas.width = size;
         this.canvas.height = size;
-        this.maskCanvas.width = size;
-        this.maskCanvas.height = size;
-    };
 
 
     var buildColorString = function (rgb, type) {
