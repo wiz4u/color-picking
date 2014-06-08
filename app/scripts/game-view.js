@@ -7,7 +7,10 @@
         this.video = video;
 
         this.showColor = false;
-        this.color = 'rgba(0, 0, 0, 0)';
+        this.updatePickingColor = false;
+        this.color = {r: 0, g: 0, b: 0};
+        this.colorString = CP.ColorUtil.buildColorString(this.color);
+        this.pickingColor = {r: 0, g: 0, b: 0};
 
         this.game = null;
 
@@ -61,7 +64,7 @@
 
         // show color : fill outside of circle
         if (this.showColor) {
-            ctx.fillStyle = this.color;
+            ctx.fillStyle = this.colorString;
             ctx.beginPath();
             ctx.arc(centerX, centerY, cS / 3, 0, Math.PI * 2);
             ctx.rect(cS, 0, -1 * cS, cS);
@@ -70,8 +73,11 @@
 
         // show color : center
         if (this.showColor) {
-            var centerColor = getCenterColor(ctx, centerX, centerY, cS / 20);
-            ctx.fillStyle = CP.ColorUtil.buildColorString(centerColor);
+            if (this.updatePickingColor) {
+                this.pickingColor = getCenterColor(ctx, centerX, centerY, cS / 20);
+            }
+
+            ctx.fillStyle = CP.ColorUtil.buildColorString(this.pickingColor);
             ctx.beginPath();
             ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
             ctx.fill();
@@ -79,7 +85,7 @@
             ctx.beginPath();
             ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
             ctx.lineWidth = 3;
-            ctx.strokeStyle = this.color;
+            ctx.strokeStyle = this.colorString;
             ctx.stroke();
 
             // doughnut style
@@ -128,8 +134,18 @@
         setTimeout(_countdownEnd, 1500);
 
         // choose color
-        this.color = CP.ColorUtil.buildColorString(game.getColor());
+        this.color = game.getColor();
+        this.colorString = CP.ColorUtil.buildColorString(this.color);
         this.showColor = true;
+        this.updatePickingColor = true;
+    };
+
+    GameView.prototype.stop = function () {
+        this.updatePickingColor = false;
+    };
+
+    GameView.prototype.getPickingColor = function () {
+        return this.pickingColor;
     };
 
     // Export

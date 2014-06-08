@@ -22,6 +22,38 @@
             var r = rgb.r, g = rgb.g, b = rgb.b;
             var maxmin = Math.max(r, g, b) + Math.min(r, g, b);
             return {r: maxmin - r, g: maxmin - g, b: maxmin - b};
+        },
+
+        rgb2hsv: function (rgb) {
+            var r = rgb.r,
+                g = rgb.g,
+                b = rgb.b,
+                h, s, v;
+            var max = Math.max(r, g, b);
+            var min = Math.min(r, g, b);
+
+            // h
+            if (max === min) {
+                h = 0;
+            } else if (max === r) {
+                h = (60 * (g - b) / (max - min) + 360) % 360;
+            } else if (max === g) {
+                h = (60 * (b - r) / (max - min)) + 120;
+            } else if (max === b) {
+                h = (60 * (r - g) / (max - min)) + 240;
+            }
+
+            // s
+            if (max === 0) {
+                s = 0;
+            } else {
+                s = (255 * ((max - min) / max));
+            }
+
+            // v
+            v = max;
+
+            return {h: h, s: s, v: v};
         }
     };
 

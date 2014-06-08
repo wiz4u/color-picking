@@ -22,8 +22,21 @@
         this.startTime = new Date();
     };
 
-    Game.prototype.pick = function () {
+    Game.prototype.stop = function () {
         this.endTime = new Date();
+    };
+
+    Game.prototype.calcScore = function (pickingColor) {
+
+        // complare this.color vs pickingColor
+        var colorHsv = CP.ColorUtil.rgb2hsv(this.color);
+        var pickingColorHsv = CP.ColorUtil.rgb2hsv(pickingColor);
+
+        var diffH = Math.abs(colorHsv.h - pickingColorHsv.h);
+        diffH = diffH < 180 ? diffH : 360 - diffH;
+        var score = (1 - diffH / 180) * 100;
+        score = Math.round(score);
+        return score;
     };
 
     Game.prototype.getElapsedTimeMs = function () {

@@ -106,13 +106,7 @@ footer {
     to   { transform: scale(1); opacity: 1;}
 }
 
-#elapsed_time {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    padding: .5em;
-    margin: 0;
-    text-align: right;
+.game-text {
     font-size: 3em;
     text-shadow:  1px  1px 1px white,
                   1px -1px 1px white,
@@ -122,4 +116,22 @@ footer {
     @media screen and (max-width: 768px) {
         font-size: 2em;
     }
+}
+
+#elapsed_time {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: .5em;
+    margin: 0;
+    text-align: right;
+}
+
+#score {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: .5em;
+    margin: 0;
+    text-align: left;
 }

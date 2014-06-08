@@ -11,6 +11,9 @@
         document.getElementById('game_view'),
         camera.getElement());
 
+    // game
+    var game = null;
+
     // change camera button
     $('.change-camera').on('click', function() {
         camera.changeCamera();
@@ -18,8 +21,20 @@
 
     // start game button
     $('.start-game').on('click', function () {
-        var game = new window.CP.Game();
+        $('#score').text('Score : ');
+
+        game = new window.CP.Game();
         gameView.start(game);
+    });
+
+    // pick button
+    $('.pick').on('click', function () {
+        gameView.stop();
+        game.stop();
+        var color = gameView.getPickingColor();
+        var score = game.calcScore(color);
+
+        $('#score').text('Score : ' + score);
     });
 
 })();
