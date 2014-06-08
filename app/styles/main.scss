@@ -4,67 +4,18 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 @import '../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';
 // endbower
 
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
-
-/* Space out content a bit */
-body {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
 /* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
+header,
+footer {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Custom page header */
-.header {
-    border-bottom: 1px solid #e5e5e5;
-
-    /* Make the masthead heading the same height as the navigation */
-    h3 {
-        margin-top: 0;
-        margin-bottom: 0;
-        line-height: 40px;
-        padding-bottom: 19px;
-    }
-}
-
 /* Custom page footer */
-.footer {
+footer {
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-    margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-    text-align: center;
-    border-bottom: 1px solid #e5e5e5;
-    .btn {
-        font-size: 21px;
-        padding: 14px 24px;
-    }
-}
-
-/* Supporting marketing content */
-.marketing {
-    margin: 40px 0;
-    p + h4 {
-        margin-top: 28px;
-    }
 }
 
 /* Responsive: Portrait tablets and up */
@@ -72,22 +23,100 @@ body {
     .container {
         max-width: 730px;
     }
+}
 
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-left: 0;
-        padding-right: 0;
+/* custom for mobile */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0;
     }
 
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
+    footer {
+        display: none;
     }
 
-    /* Remove the bottom border on the jumbotron for visual effect */
-    .jumbotron {
-        border-bottom: 0;
+    .navbar {
+        margin-bottom: 0;
+    }
+}
+
+#game_view {
+    width: 100%;
+}
+
+.game-view-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.count-pane-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+
+    .count-pane {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        span {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            margin: -.7em 0 0 0;
+            font-size: 20em;
+            color: white;
+            text-shadow: 2px 2px 5px black;
+            text-align: center;
+        }
+    }
+}
+
+.count-pane-wrapper.active {
+    visibility: visible;
+
+    .count-pane {
+        opacity: 0;
+        animation-name: fade-dezoom-in;
+        animation-duration: .5s;
+        animation-timing-function: ease-out;
+    }
+
+    .count-pane:nth-child(3n) {
+        animation-delay: 0s;
+    }
+
+    .count-pane:nth-child(3n+2) {
+        animation-delay: .5s;
+    }
+
+    .count-pane:nth-child(3n+1) {
+        animation-delay: 1s;
+    }
+}
+
+@keyframes fade-dezoom-in {
+    from { transform: scale(5); opacity: 0; }
+    to   { transform: scale(1); opacity: 1;}
+}
+
+#elapsed_time {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: .5em;
+    margin: 0;
+    text-align: right;
+    font-size: 3em;
+    text-shadow: 1px 1px 5px white;
+
+    @media screen and (max-width: 768px) {
+        font-size: 2em;
     }
 }
