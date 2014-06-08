@@ -20,26 +20,8 @@
         var size = $(this.canvas).width();
         this.canvas.width = size;
         this.canvas.height = size;
-
-
-    var buildColorString = function (rgb, type) {
-        switch (type) {
-        default:
-        case 'rgba':
-            return 'rgba(' + rgb.r + ', ' + rgb.g + ', ' + rgb.b + ', 1)';
-        case '#':
-            var r = rgb.r.toString(16); r = r.length === 2 ? r : '0' + r;
-            var g = rgb.g.toString(16); g = g.length === 2 ? g : '0' + g;
-            var b = rgb.b.toString(16); b = b.length === 2 ? b : '0' + b;
-            return '#' + r + g + b;
-        }
     };
 
-    var calcComplementaryColor = function (rgb) {
-        var r = rgb.r, g = rgb.g, b = rgb.b;
-        var maxmin = Math.max(r, g, b) + Math.min(r, g, b);
-        return {r: maxmin - r, g: maxmin - g, b: maxmin - b};
-    };
 
     var getCenterColor = function (ctx, centerX, centerY, radius) {
         var len = radius * 2;
@@ -89,7 +71,7 @@
         // show color : center
         if (this.showColor) {
             var centerColor = getCenterColor(ctx, centerX, centerY, cS / 20);
-            ctx.fillStyle = buildColorString(centerColor);
+            ctx.fillStyle = CP.ColorUtil.buildColorString(centerColor);
             ctx.beginPath();
             ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
             ctx.fill();
@@ -146,7 +128,7 @@
         setTimeout(_countdownEnd, 1500);
 
         // choose color
-        this.color = game.getColor();
+        this.color = CP.ColorUtil.buildColorString(game.getColor());
         this.showColor = true;
     };
 
