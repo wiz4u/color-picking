@@ -1,7 +1,7 @@
 (function (CP) {
     'use strict';
 
-    var GameView = function (canvas, video) {
+    var GameView = function (canvas, video, updateCallback) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.video = video;
@@ -13,6 +13,8 @@
         this.pickingColor = {r: 0, g: 0, b: 0};
 
         this.game = null;
+
+        this.updateCallback = updateCallback || function () {};
 
         this.layout();
         this.update();
@@ -111,11 +113,8 @@
             */
         }
 
-        // time
-        if (this.game) {
-            var time = this.game.getElapsedTimeMs() / 1000;
-            $('#elapsed_time').text(time.toFixed(2));
-        }
+        // callback
+        this.updateCallback();
 
         // call next frame
         this.requestId = window.requestAnimationFrame(this.update.bind(this));
