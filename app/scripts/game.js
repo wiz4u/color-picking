@@ -27,15 +27,21 @@
     };
 
     Game.prototype.calcScore = function (pickingColor) {
-
         // complare this.color vs pickingColor
         var colorHsv = CP.ColorUtil.rgb2hsv(this.color);
         var pickingColorHsv = CP.ColorUtil.rgb2hsv(pickingColor);
 
         var diffH = Math.abs(colorHsv.h - pickingColorHsv.h);
         diffH = diffH < 180 ? diffH : 360 - diffH;
-        var score = (1 - diffH / 180) * 100;
-        score = Math.round(score);
+        var scoreH = 1 - diffH / 180;
+
+        var scoreS = 1 - Math.abs(colorHsv.s - pickingColorHsv.s) / 255;
+
+        var weightH = 0.7;
+        var weightS = 0.3;
+        var score = weightH * scoreH + weightS * scoreS;
+
+        score = Math.round(score * 100);
         return score;
     };
 
