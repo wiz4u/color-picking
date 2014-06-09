@@ -1,7 +1,7 @@
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 
 // bower:scss
-@import '../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss';
+@import "../../bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss";
 // endbower
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -27,8 +27,11 @@ footer {
 
 /* custom for mobile */
 @media screen and (max-width: 768px) {
-    .container {
+    .container,
+    .row,
+    .col-xs-12 {
         padding: 0;
+        margin: 0;
     }
 
     footer {
@@ -134,4 +137,86 @@ footer {
     padding: .5em;
     margin: 0;
     text-align: left;
+}
+
+/* Buttons */
+$button-bg-color-light: #fff;
+$button-bg-color-dark: #eee;
+$button-border-color: #999;
+$button-text-color: #999;
+
+.control {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    margin: 10px 0;
+
+    @media screen and (max-width: 768px) {
+        position: absolute;
+        bottom: -25px;
+        margin: 0;
+    }
+
+    .main-button {
+        position: absolute;
+        display: inline-block;
+        top: 0;
+        left: 50%;
+        width: 150px;
+        height: 150px;
+        margin-left: -75px;
+        border-radius: 75px;
+
+        background-color: $button-bg-color-light;
+        background-size: 30px 30px;
+        background-position: 0 0, 15px 15px;
+        background-image: linear-gradient(45deg,
+                                          $button-bg-color-dark 25%,
+                                          $button-bg-color-dark 25%,
+                                          transparent 25%,
+                                          transparent 75%,
+                                          $button-bg-color-dark 75%,
+                                          $button-bg-color-dark 75%),
+                          linear-gradient(-135deg,
+                                          $button-bg-color-dark 25%,
+                                          $button-bg-color-dark 25%,
+                                          transparent 25%,
+                                          transparent 75%,
+                                          $button-bg-color-dark 75%,
+                                          $button-bg-color-dark 75%);
+        border: 3px solid $button-border-color;
+        color: $button-text-color;
+
+        text-align: center;
+        font-size: 4em;
+        line-height: 2.5em;
+        text-decoration: none;
+    }
+
+    .main-button:active {
+        box-shadow: inset 0 0 20px $button-border-color;
+        text-shadow: 0 0 5px $button-text-color;
+    }
+
+    .start-game:after {
+        content: "Start";
+    }
+
+    .pick:after {
+        content: "Pick";
+    }
+
+    .change-camera {
+        top: 75px;
+        margin-top: -1em;
+        margin-left: 10px;
+
+        .fa-refresh {
+            color: #ddd;
+        }
+
+        .fa-camera {
+            color: #555;
+        }
+    }
 }

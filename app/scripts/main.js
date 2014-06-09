@@ -33,24 +33,33 @@
             showScore();
         });
 
+    // button behavior
+    var $changeCamera = $('.change-camera');
+    var $mainButton = $('.main-button');
+
     // change camera button
-    $('.change-camera').on('click', function() {
+    $changeCamera.on('click', function() {
         camera.changeCamera();
     });
 
-    // start game button
-    $('.start-game').on('click', function () {
-        $('#score').text('Score : ');
+    // main button
+    $mainButton.on('click', function () {
+        if ($mainButton.hasClass('start-game')) { // start game
+            $mainButton.removeClass('start-game');
+            $mainButton.addClass('pick');
 
-        game = new window.CP.Game();
-        gameView.start(game);
-    });
+            $('#score').text('Score : ');
 
-    // pick button
-    $('.pick').on('click', function () {
-        gameView.stop();
-        game.stop();
-        showScore();
+            game = new window.CP.Game();
+            gameView.start(game);
+        } else { // pick
+            $mainButton.addClass('start-game');
+            $mainButton.removeClass('pick');
+
+            gameView.stop();
+            game.stop();
+            showScore();
+        }
     });
 
 })();
