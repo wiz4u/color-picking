@@ -205,4 +205,18 @@ $button-text-color: #999;
     .pick:after {
         content: "Pick";
     }
+
+    .change-camera {
+        top: 75px;
+        margin-top: -1em;
+        margin-left: 10px;
+
+        .fa-refresh {
+            color: #ddd;
+        }
+
+        .fa-camera {
+            color: #555;
+        }
+    }
 }
