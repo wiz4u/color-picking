@@ -1,18 +1,37 @@
 (function () {
     'use strict';
 
+    var showTime = function () {
+        if (game) {
+            var time = game.getElapsedTimeMs() / 1000;
+            $('#elapsed_time').text(time.toFixed(2));
+        }
+    };
+
+    var showScore = function () {
+        if (game) {
+            var color = gameView.getPickingColor();
+            var score = game.calcScore(color);
+            $('#score').text('Score : ' + score);
+        }
+    };
+
     // camera
     var camera = new window.CP.Camera(null, function () {
         camera.initialize();
     });
 
+    // game
+    var game = null;
+
     // game view
     var gameView = new window.CP.GameView(
         document.getElementById('game_view'),
-        camera.getElement());
-
-    // game
-    var game = null;
+        camera.getElement(),
+        function () { // update
+            showTime();
+            showScore();
+        });
 
     // change camera button
     $('.change-camera').on('click', function() {
@@ -31,10 +50,7 @@
     $('.pick').on('click', function () {
         gameView.stop();
         game.stop();
-        var color = gameView.getPickingColor();
-        var score = game.calcScore(color);
-
-        $('#score').text('Score : ' + score);
+        showScore();
     });
 
 })();
