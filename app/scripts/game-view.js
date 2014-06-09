@@ -73,18 +73,20 @@
 
         // show color : center
         if (this.showColor) {
+            var radius = cS / 15;
+
             if (this.updatePickingColor) {
-                this.pickingColor = getCenterColor(ctx, centerX, centerY, cS / 20);
+                this.pickingColor = getCenterColor(ctx, centerX, centerY, radius);
             }
 
             ctx.fillStyle = CP.ColorUtil.buildColorString(this.pickingColor);
             ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
             ctx.fill();
 
             ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
-            ctx.lineWidth = 3;
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.lineWidth = 10;
             ctx.strokeStyle = this.colorString;
             ctx.stroke();
 
