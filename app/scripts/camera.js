@@ -95,6 +95,10 @@
         navigator.getUserMedia(constraints, _successCallback, _errorCallback);
     };
 
+    Camera.prototype.getNumCameras = function () {
+        return this.videoSourceInfo.length !== 0 ? this.videoSourceInfo.length : 1;
+    };
+
     Camera.prototype.changeCamera = function () {
         var numCamera = this.videoSourceInfo.length;
         if (numCamera && numCamera > 1) {

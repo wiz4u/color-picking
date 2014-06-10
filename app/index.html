@@ -9,7 +9,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-
+        <link rel="stylesheet" href="../bower_components/fontawesome/css/font-awesome.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -57,14 +57,18 @@
                             <div class="count-pane"><span>2</span></div>
                             <div class="count-pane"><span>3</span></div>
                         </div>
-                        <p id="elapsed_time">0.00</p>
-                    </div>
-                    <div class="btn-group btn-group-justified">
-                        <a class="btn btn-info change-camera">Change Camera</a>
-                        <a class="btn btn-primary pick">Pick</a>
-                        <a class="btn btn-info start-game">Start</a>
+                        <p id="score" class="game-text">Score :</p>
+                        <p id="elapsed_time" class="game-text">0.00</p>
                     </div>
                 </div>
+            </div>
+
+            <div class="control">
+                <span class="change-camera fa-stack fa-3x">
+                    <i class="fa fa-refresh fa-stack-2x" style="color: #aaa;"></i>
+                    <i class="fa fa-camera fa-stack-1x" style="color: #555;"></i>
+                </span>
+                <a class="main-button start-game"></a>
             </div>
 
             <footer>
@@ -107,6 +111,7 @@
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
         <script src="scripts/shim.js"></script>
+        <script src="scripts/color-util.js"></script>
         <script src="scripts/camera.js"></script>
         <script src="scripts/game.js"></script>
         <script src="scripts/game-view.js"></script>
