@@ -2,7 +2,8 @@
 *Let's look anew at the world around you*
 
 
-**[Color Picking](http://wiz4u.github.io/color-picking/)** is a game to look for color using the camrea.
+**[Color Picking](http://wiz4u.github.io/color-picking/)** is a game
+to look for the intended color using the camera.
 
 
 ## Supported Browser
