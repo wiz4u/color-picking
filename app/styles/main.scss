@@ -152,7 +152,7 @@ $button-text-color: #999;
     margin: 10px 0;
 
     @media screen and (max-width: 768px) {
-        position: absolute;
+        position: fixed;
         bottom: -25px;
         margin: 0;
     }
