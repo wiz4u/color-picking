@@ -19,6 +19,9 @@
     // camera
     var camera = new window.CP.Camera(null, function () {
         camera.initialize();
+        if (camera.getNumCameras() === 1) {
+            $('.change-camera').hide();
+        }
     });
 
     // game
