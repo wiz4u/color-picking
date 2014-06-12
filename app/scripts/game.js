@@ -2,24 +2,9 @@
     'use strict';
 
     var Game = function () {
-        this.color = getRandomColor({s: {min: 128}, v: {min: 128}});
+        this.color = CP.ColorUtil.getRandomColor({s: {min: 128}, v: {min: 128}});
         this.startTime = null;
         this.endTime = null;
-    };
-
-    var getRandomColor = function (option) {
-        var minH = (option && option.h && option.h.min) ? option.h.min : 0;
-        var maxH = (option && option.h && option.h.max) ? option.h.max : 360;
-        var minS = (option && option.s && option.s.min) ? option.s.min : 0;
-        var maxS = (option && option.s && option.s.max) ? option.s.max : 256;
-        var minV = (option && option.v && option.v.min) ? option.v.min : 0;
-        var maxV = (option && option.v && option.v.max) ? option.v.max : 256;
-
-        var h = Math.floor(Math.random() * (maxH - minH) + minH);
-        var s = Math.floor(Math.random() * (maxS - minS) + minS);
-        var v = Math.floor(Math.random() * (maxV - minV) + minV);
-
-        return CP.ColorUtil.hsv2rgb({h: h, s: s, v: v});
     };
 
     Game.prototype.getColor = function () {
@@ -35,25 +20,7 @@
     };
 
     Game.prototype.calcScore = function (pickingColor) {
-        // complare this.color vs pickingColor
-        var colorHsv = CP.ColorUtil.rgb2hsv(this.color);
-        var pickingColorHsv = CP.ColorUtil.rgb2hsv(pickingColor);
-
-        var diffH = Math.abs(colorHsv.h - pickingColorHsv.h);
-        diffH = diffH < 180 ? diffH : 360 - diffH;
-        var scoreH = 1 - diffH / 180;
-        var scoreS = 1 - Math.abs(colorHsv.s - pickingColorHsv.s) / 255;
-        var scoreV = 1 - Math.abs(colorHsv.v - pickingColorHsv.v) / 255;
-
-        var weightH = 0.6;
-        var weightS = 0.2;
-        var weightV = 0.2;
-
-        var score = weightH * scoreH * scoreH +
-                    weightS * scoreS * scoreS +
-                    weightV * scoreV * scoreV;
-
-        return Math.round(score * 100);
+        return CP.ColorUtil.calcColorDistance(this.color, pickingColor);
     };
 
     Game.prototype.getElapsedTimeMs = function () {
