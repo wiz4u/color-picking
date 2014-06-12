@@ -42,15 +42,18 @@
         var diffH = Math.abs(colorHsv.h - pickingColorHsv.h);
         diffH = diffH < 180 ? diffH : 360 - diffH;
         var scoreH = 1 - diffH / 180;
-
         var scoreS = 1 - Math.abs(colorHsv.s - pickingColorHsv.s) / 255;
+        var scoreV = 1 - Math.abs(colorHsv.v - pickingColorHsv.v) / 255;
 
-        var weightH = 0.7;
-        var weightS = 0.3;
-        var score = weightH * scoreH + weightS * scoreS;
+        var weightH = 0.6;
+        var weightS = 0.2;
+        var weightV = 0.2;
 
-        score = Math.round(score * 100);
-        return score;
+        var score = weightH * scoreH * scoreH +
+                    weightS * scoreS * scoreS +
+                    weightV * scoreV * scoreV;
+
+        return Math.round(score * 100);
     };
 
     Game.prototype.getElapsedTimeMs = function () {
