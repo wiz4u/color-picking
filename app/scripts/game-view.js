@@ -78,7 +78,7 @@
 
         // show color : center
         if (this.showColor) {
-            var radius = cS / 15;
+            var radius = Math.floor(cS / 15);
 
             if (this.updatePickingColor) {
                 this.pickingColor = getCenterColor(ctx, centerX, centerY, radius);
