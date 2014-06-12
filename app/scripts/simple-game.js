@@ -1,29 +1,29 @@
 (function (CP) {
     'use strict';
 
-    var Game = function () {
+    var SimpleGame = function () {
         this.color = CP.ColorUtil.getRandomColor({s: {min: 128}, v: {min: 128}});
         this.startTime = null;
         this.endTime = null;
     };
 
-    Game.prototype.getColor = function () {
+    SimpleGame.prototype.getColor = function () {
         return this.color;
     };
 
-    Game.prototype.start = function () {
+    SimpleGame.prototype.start = function () {
         this.startTime = new Date();
     };
 
-    Game.prototype.stop = function () {
+    SimpleGame.prototype.stop = function () {
         this.endTime = new Date();
     };
 
-    Game.prototype.calcScore = function (pickingColor) {
+    SimpleGame.prototype.calcScore = function (pickingColor) {
         return CP.ColorUtil.calcColorDistance(this.color, pickingColor);
     };
 
-    Game.prototype.getElapsedTimeMs = function () {
+    SimpleGame.prototype.getElapsedTimeMs = function () {
         var now = new Date();
         var startTime = this.startTime !== null ? this.startTime : now;
         var endTime = this.endTime !== null ? this.endTime : now;
@@ -31,6 +31,6 @@
     };
 
     // Export
-    CP.Game = Game;
+    CP.SimpleGame = SimpleGame;
 
 })(window.CP = window.CP || {});

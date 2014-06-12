@@ -53,7 +53,7 @@
 
             $('#score').text('Score : ');
 
-            game = new window.CP.Game();
+            game = new window.CP.SimpleGame();
             gameView.start(game);
         } else { // pick
             $mainButton.addClass('start-game');
