@@ -52,17 +52,20 @@
 
     GameView.prototype.update = function () {
         var ctx = this.ctx;
+        var cS = this.canvas.width;
         var centerX = this.canvas.width / 2;
         var centerY = this.canvas.height / 2;
 
         // crop camera center
-        var cS = this.canvas.width;
-        var vW = this.video.videoWidth;
-        var vH = this.video.videoHeight;
-        var vS = Math.min(vW, vH);
-        this.ctx.drawImage(this.video,
-                           (vW - vS) / 2, (vH - vS) / 2, vS, vS,
-                           0, 0, cS, cS);
+        if (this.video.videoWidth && this.video.videoHeight) {
+            var vW = this.video.videoWidth;
+            var vH = this.video.videoHeight;
+
+            var vS = Math.min(vW, vH);
+            this.ctx.drawImage(this.video,
+                               (vW - vS) / 2, (vH - vS) / 2, vS, vS,
+                               0, 0, cS, cS);
+        }
 
         // show color : fill outside of circle
         if (this.showColor) {
