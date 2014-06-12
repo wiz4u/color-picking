@@ -41,6 +41,10 @@
 
         // return [0, 100]
         calcColorDistance: function (color1, color2) {
+            if (!color1 || !color2) {
+                return 0;
+            }
+
             var _getHsv = function (color) {
                 if (color.h !== undefined &&
                     color.s !== undefined &&

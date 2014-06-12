@@ -12,8 +12,6 @@
         this.colorString = CP.ColorUtil.buildColorString(this.color);
         this.pickingColor = {r: 0, g: 0, b: 0};
 
-        this.game = null;
-
         this.updateCallback = updateCallback || function () {};
 
         this.layout();
@@ -123,13 +121,11 @@
         this.requestId = window.requestAnimationFrame(this.update.bind(this));
     };
 
-    GameView.prototype.start = function (game) {
-        this.game = game;
-
+    GameView.prototype.start = function (color, callback) {
         // count-down end callback
         var _countdownEnd = function () {
             $('.count-pane-wrapper').removeClass('active');
-            game.start();
+            callback();
         };
 
         // start count down
@@ -138,7 +134,7 @@
         setTimeout(_countdownEnd, 1500);
 
         // choose color
-        this.color = game.getColor();
+        this.color = color;
         this.colorString = CP.ColorUtil.buildColorString(this.color);
         this.showColor = true;
         this.updatePickingColor = true;
