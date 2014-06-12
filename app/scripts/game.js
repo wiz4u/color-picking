@@ -2,16 +2,24 @@
     'use strict';
 
     var Game = function () {
-        this.color = getRandomColor();
+        this.color = getRandomColor({s: {min: 128}, v: {min: 128}});
         this.startTime = null;
         this.endTime = null;
     };
 
-    var getRandomColor = function () {
-        var r = Math.floor(Math.random() * 256);
-        var g = Math.floor(Math.random() * 256);
-        var b = Math.floor(Math.random() * 256);
-        return {r: r, g: g, b: b};
+    var getRandomColor = function (option) {
+        var minH = (option && option.h && option.h.min) ? option.h.min : 0;
+        var maxH = (option && option.h && option.h.max) ? option.h.max : 360;
+        var minS = (option && option.s && option.s.min) ? option.s.min : 0;
+        var maxS = (option && option.s && option.s.max) ? option.s.max : 256;
+        var minV = (option && option.v && option.v.min) ? option.v.min : 0;
+        var maxV = (option && option.v && option.v.max) ? option.v.max : 256;
+
+        var h = Math.floor(Math.random() * (maxH - minH) + minH);
+        var s = Math.floor(Math.random() * (maxS - minS) + minS);
+        var v = Math.floor(Math.random() * (maxV - minV) + minV);
+
+        return CP.ColorUtil.hsv2rgb({h: h, s: s, v: v});
     };
 
     Game.prototype.getColor = function () {
