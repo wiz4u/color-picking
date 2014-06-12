@@ -54,6 +54,30 @@
             v = max;
 
             return {h: h, s: s, v: v};
+        },
+
+        hsv2rgb: function (hsv) {
+            var h = hsv.h,
+                s = hsv.s,
+                v = hsv.v,
+                r, g, b;
+
+            var i = Math.floor(h / 60) % 6;
+            var f = (h / 60) - Math.floor(h / 60);
+            var p = Math.round(v * (1 - (s / 255)));
+            var q = Math.round(v * (1 - (s / 255) * f));
+            var t = Math.round(v * (1 - (s / 255) * (1 - f)));
+
+            switch (i) {
+                case 0 : r = v; g = t; b = p; break;
+                case 1 : r = q; g = v; b = p; break;
+                case 2 : r = p; g = v; b = t; break;
+                case 3 : r = p; g = q; b = v; break;
+                case 4 : r = t; g = p; b = v; break;
+                case 5 : r = v; g = p; b = q; break;
+            }
+
+            return {r: r, g: g, b: b};
         }
     };
 
