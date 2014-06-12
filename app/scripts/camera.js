@@ -3,8 +3,8 @@
 
     var Camera = function (element, callback) {
         this.element = element || document.createElement('video');
-        this.element.setAttribute('muted', 'true');
-        this.element.setAttribute('autoplay', 'true');
+        this.element.autoplay = true;
+        this.element.muted = true;
 
         this.stream = null;
 
