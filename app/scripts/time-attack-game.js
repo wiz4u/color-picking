@@ -12,13 +12,14 @@
 
         this.color = null;
 
+        this.$mainButton = null;
         this._onClickMainButton = this.onClickMainButton.bind(this);
     };
 
     TimeAttackGame.prototype.initialize = function () {
         // set up dom event
-        var $mainButton = $('.main-button');
-        $mainButton.on('click', this._onClickMainButton);
+        this.$mainButton = $('.main-button');
+        this.$mainButton.on('click', this._onClickMainButton);
     };
 
     TimeAttackGame.prototype.finalize = function () {
@@ -49,6 +50,9 @@
 
         var self = this;
         this.gameView.start(function () {
+            self.$mainButton.removeClass('start-game');
+            self.$mainButton.addClass('restart-game');
+
             var now = new Date();
             now.setMilliseconds(now.getMilliseconds() + self.TOTAL_TIME_MS);
             self.endTime = now;
@@ -56,6 +60,8 @@
     };
 
     TimeAttackGame.prototype.stop = function () {
+        this.$mainButton.addClass('start-game');
+        this.$mainButton.removeClass('restart-game');
         this.endTime = null;
         this.gameView.stop();
     };
@@ -91,14 +97,9 @@
     };
 
     TimeAttackGame.prototype.onClickMainButton = function () {
-        var $mainButton = $('.main-button');
-        if ($mainButton.hasClass('start-game')) { // start game
-            $mainButton.removeClass('start-game');
-            $mainButton.addClass('restart-game');
+        if (this.$mainButton.hasClass('start-game')) { // start game
             this.start();
-        } else { // pick
-            $mainButton.addClass('start-game');
-            $mainButton.removeClass('restart-game');
+        } else { // restart
             this.stop();
             this.start();
         }
