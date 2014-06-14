@@ -24,6 +24,56 @@
             return {r: maxmin - r, g: maxmin - g, b: maxmin - b};
         },
 
+        getRandomColor: function (option) {
+            var minH = (option && option.h && option.h.min) ? option.h.min : 0;
+            var maxH = (option && option.h && option.h.max) ? option.h.max : 360;
+            var minS = (option && option.s && option.s.min) ? option.s.min : 0;
+            var maxS = (option && option.s && option.s.max) ? option.s.max : 256;
+            var minV = (option && option.v && option.v.min) ? option.v.min : 0;
+            var maxV = (option && option.v && option.v.max) ? option.v.max : 256;
+
+            var h = Math.floor(Math.random() * (maxH - minH) + minH);
+            var s = Math.floor(Math.random() * (maxS - minS) + minS);
+            var v = Math.floor(Math.random() * (maxV - minV) + minV);
+
+            return CP.ColorUtil.hsv2rgb({h: h, s: s, v: v});
+        },
+
+        // return [0, 100]
+        calcColorDistance: function (color1, color2) {
+            if (!color1 || !color2) {
+                return 0;
+            }
+
+            var _getHsv = function (color) {
+                if (color.h !== undefined &&
+                    color.s !== undefined &&
+                    color.v !== undefined) {
+                    return color;
+                }
+                return CP.ColorUtil.rgb2hsv(color);
+            };
+
+            var hsv1 = _getHsv(color1);
+            var hsv2 = _getHsv(color2);
+
+            var diffH = Math.abs(hsv1.h - hsv2.h);
+            diffH = diffH < 180 ? diffH : 360 - diffH;
+            var scoreH = 1 - diffH / 180;
+            var scoreS = 1 - Math.abs(hsv1.s - hsv2.s) / 255;
+            var scoreV = 1 - Math.abs(hsv1.v - hsv2.v) / 255;
+
+            var weightH = 0.6;
+            var weightS = 0.2;
+            var weightV = 0.2;
+
+            var score = weightH * scoreH * scoreH +
+                        weightS * scoreS * scoreS +
+                        weightV * scoreV * scoreV;
+
+            return Math.round(score * 100);
+        },
+
         rgb2hsv: function (rgb) {
             var r = rgb.r,
                 g = rgb.g,
