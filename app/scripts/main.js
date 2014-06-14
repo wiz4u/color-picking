@@ -33,7 +33,8 @@
         });
 
     // game
-    var game = new CP.SimpleGame(gameView);
+    //var game = new CP.SimpleGame(gameView);
+    var game = new CP.TimeAttackGame(gameView);
 
     // button behavior
     var $changeCamera = $('.change-camera');

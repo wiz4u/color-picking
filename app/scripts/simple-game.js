@@ -8,10 +8,6 @@
         this.endTime = null;
     };
 
-    SimpleGame.prototype.getColor = function () {
-        return this.color;
-    };
-
     SimpleGame.prototype.start = function () {
         // initialize
         this.startTime = null;

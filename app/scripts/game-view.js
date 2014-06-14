@@ -8,8 +8,7 @@
 
         this.showColor = false;
         this.updatePickingColor = false;
-        this.color = {r: 0, g: 0, b: 0};
-        this.colorString = CP.ColorUtil.buildColorString(this.color);
+        this.colorString = 'rgba(0, 0, 0, 1)';
         this.pickingColor = {r: 0, g: 0, b: 0};
 
         this.updateCallback = updateCallback || function () {};
@@ -24,7 +23,6 @@
         this.canvas.width = size;
         this.canvas.height = size;
     };
-
 
     var getCenterColor = function (ctx, centerX, centerY, radius) {
         var len = radius * 2;
@@ -134,14 +132,17 @@
         setTimeout(_countdownEnd, 1500);
 
         // choose color
-        this.color = color;
-        this.colorString = CP.ColorUtil.buildColorString(this.color);
+        this.colorString = CP.ColorUtil.buildColorString(color);
         this.showColor = true;
         this.updatePickingColor = true;
     };
 
     GameView.prototype.stop = function () {
         this.updatePickingColor = false;
+    };
+
+    GameView.prototype.setColor = function (color) {
+        this.colorString = CP.ColorUtil.buildColorString(color);
     };
 
     GameView.prototype.getPickingColor = function () {
