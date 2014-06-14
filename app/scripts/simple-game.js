@@ -1,11 +1,16 @@
 (function (CP) {
     'use strict';
 
-    var SimpleGame = function (gameView) {
-        this.gameView = gameView;
+    var SimpleGame = function (canvas, video) {
+        this.gameView = new CP.GameView(canvas, video);
+
         this.color = null;
         this.startTime = null;
         this.endTime = null;
+    };
+
+    SimpleGame.prototype.update = function () {
+        this.gameView.update();
     };
 
     SimpleGame.prototype.start = function () {
@@ -15,7 +20,8 @@
         this.color = CP.ColorUtil.getRandomColor({s: {min: 128}, v: {min: 128}});
 
         var self = this;
-        this.gameView.start(this.color, function () {
+        this.gameView.setColor(this.color);
+        this.gameView.start(function () {
             self.startTime = new Date();
         });
     };

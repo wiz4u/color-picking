@@ -1,8 +1,8 @@
 (function (CP) {
     'use strict';
 
-    var TimeAttackGame = function (gameView) {
-        this.gameView = gameView;
+    var TimeAttackGame = function (canvas, video) {
+        this.gameView = new CP.GameView(canvas, video);
 
         this.TOTAL_TIME_MS = 1000 * 30; // 30 [min]
         this.SCORE_THRESH = 85;
@@ -14,6 +14,10 @@
 
     };
 
+    TimeAttackGame.prototype.update = function () {
+        this.gameView.update();
+    };
+
     TimeAttackGame.prototype.start = function () {
         // initialize
         this.endTime = null;
@@ -21,7 +25,7 @@
         this.setNextColor();
 
         var self = this;
-        this.gameView.start(this.color, function () {
+        this.gameView.start(function () {
             var now = new Date();
             now.setMilliseconds(now.getMilliseconds() + self.TOTAL_TIME_MS);
             self.endTime = now;

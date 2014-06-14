@@ -23,26 +23,44 @@
         }
     });
 
-    // game view
-    var gameView = new CP.GameView(
-        document.getElementById('game_view'),
-        camera.getElement(),
-        function () { // update
-            showTime();
-            showScore();
-        });
-
     // game
-    //var game = new CP.SimpleGame(gameView);
-    var game = new CP.TimeAttackGame(gameView);
+    var gameType = 'time-attack';
+    var gameSimple = new CP.SimpleGame(
+        document.getElementById('game_view'),
+        camera.getElement()
+    );
+
+    var gameTA = new CP.TimeAttackGame(
+        document.getElementById('game_view'),
+        camera.getElement()
+    );
+
+    var game = gameSimple;
 
     // button behavior
     var $changeCamera = $('.change-camera');
     var $mainButton = $('.main-button');
+    var $switchSimpleMode = $('.switch-simple-mode');
+    var $switchTAMode = $('.switch-ta-mode');
 
     // change camera button
     $changeCamera.on('click', function() {
         camera.changeCamera();
+    });
+
+    // change game mode
+    $switchSimpleMode.on('click', function () {
+        $mainButton.addClass('start-game');
+        $mainButton.removeClass('pick');
+        game.stop();
+        game = gameSimple;
+    });
+
+    $switchTAMode.on('click', function () {
+        $mainButton.addClass('start-game');
+        $mainButton.removeClass('pick');
+        game.stop();
+        game = gameTA;
     });
 
     // main button
@@ -62,5 +80,17 @@
             showScore();
         }
     });
+
+    // update
+    var requestId = null;
+    var update = function () {
+        game.update();
+        showTime();
+        showScore();
+
+        // call next frame
+        requestId = window.requestAnimationFrame(update);
+    };
+    update();
 
 })(window.CP);

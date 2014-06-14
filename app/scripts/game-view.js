@@ -1,7 +1,7 @@
 (function (CP) {
     'use strict';
 
-    var GameView = function (canvas, video, updateCallback) {
+    var GameView = function (canvas, video) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.video = video;
@@ -11,10 +11,7 @@
         this.colorString = 'rgba(0, 0, 0, 1)';
         this.pickingColor = {r: 0, g: 0, b: 0};
 
-        this.updateCallback = updateCallback || function () {};
-
         this.layout();
-        this.update();
     };
 
     // TODO : call this when window is resized
@@ -111,15 +108,9 @@
             ctx.stroke();
             */
         }
-
-        // callback
-        this.updateCallback();
-
-        // call next frame
-        this.requestId = window.requestAnimationFrame(this.update.bind(this));
     };
 
-    GameView.prototype.start = function (color, callback) {
+    GameView.prototype.start = function (callback) {
         // count-down end callback
         var _countdownEnd = function () {
             $('.count-pane-wrapper').removeClass('active');
@@ -132,7 +123,6 @@
         setTimeout(_countdownEnd, 1500);
 
         // choose color
-        this.colorString = CP.ColorUtil.buildColorString(color);
         this.showColor = true;
         this.updatePickingColor = true;
     };
