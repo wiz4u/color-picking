@@ -12,6 +12,29 @@
 
         this.color = null;
 
+        this._onClickMainButton = this.onClickMainButton.bind(this);
+    };
+
+    TimeAttackGame.prototype.initialize = function () {
+        // set up dom event
+        var $mainButton = $('.main-button');
+        $mainButton.on('click', this._onClickMainButton);
+    };
+
+    TimeAttackGame.prototype.finalize = function () {
+        // tear down dom event
+        var $mainButton = $('.main-button');
+        $mainButton.off('click', this._onClickMainButton);
+
+        // reset view
+        $mainButton.addClass('start-game');
+        $mainButton.removeClass('restart-game');
+
+        // reset
+        this.stop();
+        this.endTime = null;
+        this.score = 0;
+        this.color = null;
     };
 
     TimeAttackGame.prototype.update = function () {
@@ -64,6 +87,20 @@
                 remainTime = 0;
             }
             return remainTime;
+        }
+    };
+
+    TimeAttackGame.prototype.onClickMainButton = function () {
+        var $mainButton = $('.main-button');
+        if ($mainButton.hasClass('start-game')) { // start game
+            $mainButton.removeClass('start-game');
+            $mainButton.addClass('restart-game');
+            this.start();
+        } else { // pick
+            $mainButton.addClass('start-game');
+            $mainButton.removeClass('restart-game');
+            this.stop();
+            this.start();
         }
     };
 

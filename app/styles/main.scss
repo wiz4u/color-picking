@@ -206,6 +206,11 @@ $button-text-color: #999;
         content: "Pick";
     }
 
+    .restart-game:after {
+        font-size: .7em;
+        content: "Restart";
+    }
+
     .change-camera {
         top: 75px;
         margin-top: -1em;

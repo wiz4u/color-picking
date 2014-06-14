@@ -15,6 +15,15 @@
         }
     };
 
+    var setGame = function (newGame) {
+        if (game) {
+            game.stop();
+            game.finalize();
+        }
+        newGame.initialize();
+        game = newGame;
+    };
+
     // camera
     var camera = new CP.Camera(null, function () {
         camera.initialize();
@@ -24,7 +33,7 @@
     });
 
     // game
-    var gameType = 'time-attack';
+    var game = null;
     var gameSimple = new CP.SimpleGame(
         document.getElementById('game_view'),
         camera.getElement()
@@ -35,11 +44,10 @@
         camera.getElement()
     );
 
-    var game = gameSimple;
+    setGame(gameSimple);
 
     // button behavior
     var $changeCamera = $('.change-camera');
-    var $mainButton = $('.main-button');
     var $switchSimpleMode = $('.switch-simple-mode');
     var $switchTAMode = $('.switch-ta-mode');
 
@@ -49,37 +57,8 @@
     });
 
     // change game mode
-    $switchSimpleMode.on('click', function () {
-        $mainButton.addClass('start-game');
-        $mainButton.removeClass('pick');
-        game.stop();
-        game = gameSimple;
-    });
-
-    $switchTAMode.on('click', function () {
-        $mainButton.addClass('start-game');
-        $mainButton.removeClass('pick');
-        game.stop();
-        game = gameTA;
-    });
-
-    // main button
-    $mainButton.on('click', function () {
-        if ($mainButton.hasClass('start-game')) { // start game
-            $mainButton.removeClass('start-game');
-            $mainButton.addClass('pick');
-
-            $('#score').text('Score : ');
-
-            game.start();
-        } else { // pick
-            $mainButton.addClass('start-game');
-            $mainButton.removeClass('pick');
-
-            game.stop();
-            showScore();
-        }
-    });
+    $switchSimpleMode.on('click', setGame.bind(null, gameSimple));
+    $switchTAMode.on('click', setGame.bind(null, gameTA));
 
     // update
     var requestId = null;

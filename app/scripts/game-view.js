@@ -77,9 +77,9 @@
                 this.pickingColor = getCenterColor(ctx, centerX, centerY, radius);
             }
 
-            ctx.fillStyle = CP.ColorUtil.buildColorString(this.pickingColor);
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = CP.ColorUtil.buildColorString(this.pickingColor);
             ctx.fill();
 
             ctx.beginPath();
@@ -87,26 +87,6 @@
             ctx.lineWidth = 10;
             ctx.strokeStyle = this.colorString;
             ctx.stroke();
-
-            // doughnut style
-            /*
-            var centerColor = getCenterColor(ctx, centerX, centerY, cS / 20);
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
-            ctx.lineWidth = cS / 40;
-            ctx.strokeStyle = buildColorString(centerColor);
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 20 - cS / 80, 0, Math.PI * 2);
-            ctx.lineWidth = 3;
-            ctx.strokeStyle = this.color;
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 20 + cS / 80, 0, Math.PI * 2);
-            ctx.stroke();
-            */
         }
     };
 
