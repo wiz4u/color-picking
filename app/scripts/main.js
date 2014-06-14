@@ -15,6 +15,15 @@
         }
     };
 
+    var setGame = function (newGame) {
+        if (game) {
+            game.stop();
+            game.finalize();
+        }
+        newGame.initialize();
+        game = newGame;
+    };
+
     // camera
     var camera = new CP.Camera(null, function () {
         camera.initialize();
@@ -23,44 +32,44 @@
         }
     });
 
-    // game view
-    var gameView = new CP.GameView(
-        document.getElementById('game_view'),
-        camera.getElement(),
-        function () { // update
-            showTime();
-            showScore();
-        });
-
     // game
-    //var game = new CP.SimpleGame(gameView);
-    var game = new CP.TimeAttackGame(gameView);
+    var game = null;
+    var gameSimple = new CP.SimpleGame(
+        document.getElementById('game_view'),
+        camera.getElement()
+    );
+
+    var gameTA = new CP.TimeAttackGame(
+        document.getElementById('game_view'),
+        camera.getElement()
+    );
+
+    setGame(gameSimple);
 
     // button behavior
     var $changeCamera = $('.change-camera');
-    var $mainButton = $('.main-button');
+    var $switchSimpleMode = $('.switch-simple-mode');
+    var $switchTAMode = $('.switch-ta-mode');
 
     // change camera button
     $changeCamera.on('click', function() {
         camera.changeCamera();
     });
 
-    // main button
-    $mainButton.on('click', function () {
-        if ($mainButton.hasClass('start-game')) { // start game
-            $mainButton.removeClass('start-game');
-            $mainButton.addClass('pick');
+    // change game mode
+    $switchSimpleMode.on('click', setGame.bind(null, gameSimple));
+    $switchTAMode.on('click', setGame.bind(null, gameTA));
 
-            $('#score').text('Score : ');
+    // update
+    var requestId = null;
+    var update = function () {
+        game.update();
+        showTime();
+        showScore();
 
-            game.start();
-        } else { // pick
-            $mainButton.addClass('start-game');
-            $mainButton.removeClass('pick');
-
-            game.stop();
-            showScore();
-        }
-    });
+        // call next frame
+        requestId = window.requestAnimationFrame(update);
+    };
+    update();
 
 })(window.CP);

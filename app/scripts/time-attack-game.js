@@ -1,8 +1,8 @@
 (function (CP) {
     'use strict';
 
-    var TimeAttackGame = function (gameView) {
-        this.gameView = gameView;
+    var TimeAttackGame = function (canvas, video) {
+        this.gameView = new CP.GameView(canvas, video);
 
         this.TOTAL_TIME_MS = 1000 * 30; // 30 [min]
         this.SCORE_THRESH = 85;
@@ -12,6 +12,33 @@
 
         this.color = null;
 
+        this._onClickMainButton = this.onClickMainButton.bind(this);
+    };
+
+    TimeAttackGame.prototype.initialize = function () {
+        // set up dom event
+        var $mainButton = $('.main-button');
+        $mainButton.on('click', this._onClickMainButton);
+    };
+
+    TimeAttackGame.prototype.finalize = function () {
+        // tear down dom event
+        var $mainButton = $('.main-button');
+        $mainButton.off('click', this._onClickMainButton);
+
+        // reset view
+        $mainButton.addClass('start-game');
+        $mainButton.removeClass('restart-game');
+
+        // reset
+        this.stop();
+        this.endTime = null;
+        this.score = 0;
+        this.color = null;
+    };
+
+    TimeAttackGame.prototype.update = function () {
+        this.gameView.update();
     };
 
     TimeAttackGame.prototype.start = function () {
@@ -21,7 +48,7 @@
         this.setNextColor();
 
         var self = this;
-        this.gameView.start(this.color, function () {
+        this.gameView.start(function () {
             var now = new Date();
             now.setMilliseconds(now.getMilliseconds() + self.TOTAL_TIME_MS);
             self.endTime = now;
@@ -60,6 +87,20 @@
                 remainTime = 0;
             }
             return remainTime;
+        }
+    };
+
+    TimeAttackGame.prototype.onClickMainButton = function () {
+        var $mainButton = $('.main-button');
+        if ($mainButton.hasClass('start-game')) { // start game
+            $mainButton.removeClass('start-game');
+            $mainButton.addClass('restart-game');
+            this.start();
+        } else { // pick
+            $mainButton.addClass('start-game');
+            $mainButton.removeClass('restart-game');
+            this.stop();
+            this.start();
         }
     };
 
