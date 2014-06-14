@@ -1,23 +1,17 @@
 (function (CP) {
     'use strict';
 
-    var GameView = function (canvas, video, updateCallback) {
+    var GameView = function (canvas, video) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.video = video;
 
         this.showColor = false;
         this.updatePickingColor = false;
-        this.color = {r: 0, g: 0, b: 0};
-        this.colorString = CP.ColorUtil.buildColorString(this.color);
+        this.colorString = 'rgba(0, 0, 0, 1)';
         this.pickingColor = {r: 0, g: 0, b: 0};
 
-        this.game = null;
-
-        this.updateCallback = updateCallback || function () {};
-
         this.layout();
-        this.update();
     };
 
     // TODO : call this when window is resized
@@ -26,7 +20,6 @@
         this.canvas.width = size;
         this.canvas.height = size;
     };
-
 
     var getCenterColor = function (ctx, centerX, centerY, radius) {
         var len = radius * 2;
@@ -84,9 +77,9 @@
                 this.pickingColor = getCenterColor(ctx, centerX, centerY, radius);
             }
 
-            ctx.fillStyle = CP.ColorUtil.buildColorString(this.pickingColor);
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = CP.ColorUtil.buildColorString(this.pickingColor);
             ctx.fill();
 
             ctx.beginPath();
@@ -94,42 +87,14 @@
             ctx.lineWidth = 10;
             ctx.strokeStyle = this.colorString;
             ctx.stroke();
-
-            // doughnut style
-            /*
-            var centerColor = getCenterColor(ctx, centerX, centerY, cS / 20);
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 20, 0, Math.PI * 2);
-            ctx.lineWidth = cS / 40;
-            ctx.strokeStyle = buildColorString(centerColor);
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 20 - cS / 80, 0, Math.PI * 2);
-            ctx.lineWidth = 3;
-            ctx.strokeStyle = this.color;
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 20 + cS / 80, 0, Math.PI * 2);
-            ctx.stroke();
-            */
         }
-
-        // callback
-        this.updateCallback();
-
-        // call next frame
-        this.requestId = window.requestAnimationFrame(this.update.bind(this));
     };
 
-    GameView.prototype.start = function (game) {
-        this.game = game;
-
+    GameView.prototype.start = function (callback) {
         // count-down end callback
         var _countdownEnd = function () {
             $('.count-pane-wrapper').removeClass('active');
-            game.start();
+            callback();
         };
 
         // start count down
@@ -138,14 +103,16 @@
         setTimeout(_countdownEnd, 1500);
 
         // choose color
-        this.color = game.getColor();
-        this.colorString = CP.ColorUtil.buildColorString(this.color);
         this.showColor = true;
         this.updatePickingColor = true;
     };
 
     GameView.prototype.stop = function () {
         this.updatePickingColor = false;
+    };
+
+    GameView.prototype.setColor = function (color) {
+        this.colorString = CP.ColorUtil.buildColorString(color);
     };
 
     GameView.prototype.getPickingColor = function () {
