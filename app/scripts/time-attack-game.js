@@ -24,12 +24,11 @@
 
     TimeAttackGame.prototype.finalize = function () {
         // tear down dom event
-        var $mainButton = $('.main-button');
-        $mainButton.off('click', this._onClickMainButton);
+        this.$mainButton.off('click', this._onClickMainButton);
 
         // reset view
-        $mainButton.addClass('start-game');
-        $mainButton.removeClass('restart-game');
+        this.$mainButton.addClass('start-game');
+        this.$mainButton.removeClass('restart-game');
 
         // reset
         this.stop();
@@ -47,9 +46,11 @@
         this.endTime = null;
         this.score = 0;
         this.setNextColor();
+        this.$mainButton.addClass('disable');
 
         var self = this;
         this.gameView.start(function () {
+            self.$mainButton.removeClass('disable');
             self.$mainButton.removeClass('start-game');
             self.$mainButton.addClass('restart-game');
 

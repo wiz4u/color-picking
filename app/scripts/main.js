@@ -44,7 +44,7 @@
         camera.getElement()
     );
 
-    setGame(gameSimple);
+    setGame(gameTA);
 
     // button behavior
     var $changeCamera = $('.change-camera');
