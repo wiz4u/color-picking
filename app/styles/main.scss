@@ -89,6 +89,7 @@ footer {
         animation-name: fade-dezoom-in;
         animation-duration: .5s;
         animation-timing-function: ease-out;
+        animation-fill-mode: backwards;
     }
 
     .count-pane:nth-child(3n) {
