@@ -21,6 +21,18 @@
 
     </head>
     <body>
+        <!-- facebook integration -->
+        <div id="fb-root"></div>
+        <script>
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/all.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -44,6 +56,7 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="#" class="switch-ta-mode">Time Attack Mode</a></li>
                             <li><a href="#" class="switch-simple-mode">Simple Mode</a></li>
+                            <li><a href="#" class="login">Login</a></li>
                             <li><a href="#">About</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
@@ -76,7 +89,6 @@
             <footer>
                 <p>&copy; 2014 <a href="//twitter.com/yaeda">@yaeda</a></p>
             </footer>
-
         </div>
 
 
@@ -113,6 +125,7 @@
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/config.js"></script>
         <script src="scripts/shim.js"></script>
         <script src="scripts/color-util.js"></script>
         <script src="scripts/camera.js"></script>
