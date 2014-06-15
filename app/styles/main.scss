@@ -143,7 +143,9 @@ footer {
 $button-bg-color-light: #fff;
 $button-bg-color-dark: #eee;
 $button-border-color: #999;
+$button-border-disabled-color: lighten($button-border-color, 5%);
 $button-text-color: #999;
+$button-text-disabled-color: lighten($button-text-color, 5%);
 
 .control {
     position: relative;
@@ -191,24 +193,32 @@ $button-text-color: #999;
         font-size: 4em;
         line-height: 2.5em;
         text-decoration: none;
-    }
 
-    .main-button:active {
-        box-shadow: inset 0 0 20px $button-border-color;
-        text-shadow: 0 0 5px $button-text-color;
-    }
+        &:active {
+            box-shadow: inset 0 0 20px $button-border-color;
+            text-shadow: 0 0 5px $button-text-color;
+        }
 
-    .start-game:after {
-        content: "Start";
-    }
+        &.disable {
+            border: 3px solid $button-border-disabled-color;
+            color: $button-text-disabled-color;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.65;
+        }
 
-    .pick:after {
-        content: "Pick";
-    }
+        &.start-game:after {
+            content: "Start";
+        }
 
-    .restart-game:after {
-        font-size: .7em;
-        content: "Restart";
+        &.pick:after {
+            content: "Pick";
+        }
+
+        &.restart-game:after {
+            font-size: .7em;
+            content: "Restart";
+        }
     }
 
     .change-camera {

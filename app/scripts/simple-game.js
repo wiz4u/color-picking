@@ -13,18 +13,17 @@
 
     SimpleGame.prototype.initialize = function () {
         // set up dom event
-        var $mainButton = $('.main-button');
-        $mainButton.on('click', this._onClickMainButton);
+        this.$mainButton = $('.main-button');
+        this.$mainButton.on('click', this._onClickMainButton);
     };
 
     SimpleGame.prototype.finalize = function () {
         // tear down dom event
-        var $mainButton = $('.main-button');
-        $mainButton.off('click', this._onClickMainButton);
+        this.$mainButton.off('click', this._onClickMainButton);
 
         // reset view
-        $mainButton.removeClass('pick');
-        $mainButton.addClass('start-game');
+        this.$mainButton.removeClass('pick');
+        this.$mainButton.addClass('start-game');
 
         // reset
         this.stop();
@@ -42,15 +41,22 @@
         this.startTime = null;
         this.endTime = null;
         this.color = CP.ColorUtil.getRandomColor({s: {min: 128}, v: {min: 128}});
+        this.$mainButton.addClass('disable');
 
         var self = this;
         this.gameView.setColor(this.color);
         this.gameView.start(function () {
+            self.$mainButton.removeClass('disable');
+            self.$mainButton.removeClass('start-game');
+            self.$mainButton.addClass('pick');
+
             self.startTime = new Date();
         });
     };
 
     SimpleGame.prototype.stop = function () {
+        this.$mainButton.addClass('start-game');
+        this.$mainButton.removeClass('pick');
         this.endTime = new Date();
         this.gameView.stop();
     };
@@ -72,12 +78,8 @@
     SimpleGame.prototype.onClickMainButton = function () {
         var $mainButton = $('.main-button');
         if ($mainButton.hasClass('start-game')) { // start game
-            $mainButton.removeClass('start-game');
-            $mainButton.addClass('pick');
             this.start();
         } else { // pick
-            $mainButton.addClass('start-game');
-            $mainButton.removeClass('pick');
             this.stop();
         }
     };
