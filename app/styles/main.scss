@@ -140,6 +140,84 @@ footer {
     text-align: left;
 }
 
+#score_board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    text-align: center;
+    font-size: 6em;
+    transition: background-color .3s;
+    transition-delay: .3s;
+
+    @media screen and (max-width: 768px) {
+        font-size: 3em;
+    }
+
+    .score-board-item {
+        position: absolute;
+        width: 100%;
+        left: 100%;
+        margin: 20px 0;
+        opacity: 0;
+        transition-property: left, opacity;
+        transition-duration: .5s, 0s;
+        visibility: hidden;
+    }
+
+    .score-board-item-top {
+        top: 0;
+        transition-delay: 0s, .5s;
+    }
+
+    .score-board-item-middle {
+        top: 50%;
+        margin-top: -1em;
+        transition-delay: .1s, .6s;
+    }
+
+    .score-board-item-bottom {
+        bottom: 0;
+        margin-bottom: 30px;
+        transition-delay: .2s, .7s;
+    }
+
+    &.show {
+        background-color: rgba(255, 255, 255, .8);
+        transition-delay: 0s;
+
+        .score-board-item {
+            left: 0%;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .score-board-item-top {
+            transition-delay: .3s, 0s;
+        }
+
+        .score-board-item-middle {
+            transition-delay: .4s, 0s;
+        }
+
+        .score-board-item-bottom {
+            transition-delay: .5s, 0s;
+        }
+    }
+
+    &.next {
+        background-color: rgba(255, 255, 255, .8);
+
+        .score-board-item {
+            left: -100%;
+            opacity: 0;
+            visibility: visible;
+        }
+    }
+}
+
 /* Buttons */
 $button-bg-color-light: #fff;
 $button-bg-color-dark: #eee;
