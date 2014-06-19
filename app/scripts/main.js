@@ -1,4 +1,4 @@
-/* global Parse, FB */
+/* global Parse */
 
 (function (CP) {
     'use strict';
@@ -51,16 +51,21 @@
         }
     });
 
+    // score board
+    var scoreBoardView = new CP.ScoreBoardView(document.getElementById('score_board')).initialize();
+
     // game
     var game = null;
     var gameSimple = new CP.SimpleGame(
         document.getElementById('game_view'),
-        camera.getElement()
+        camera.getElement(),
+        scoreBoardView
     );
 
     var gameTA = new CP.TimeAttackGame(
         document.getElementById('game_view'),
-        camera.getElement()
+        camera.getElement(),
+        scoreBoardView
     );
 
     setGame(gameTA);
