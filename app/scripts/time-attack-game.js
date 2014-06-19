@@ -1,8 +1,9 @@
 (function (CP) {
     'use strict';
 
-    var TimeAttackGame = function (canvas, video) {
+    var TimeAttackGame = function (canvas, video, scoreBoardView) {
         this.gameView = new CP.GameView(canvas, video);
+        this.scoreBoardView = scoreBoardView;
 
         this.TOTAL_TIME_MS = 1000 * 30; // 30 [min]
         this.SCORE_THRESH = 85;
@@ -81,7 +82,7 @@
             this.setNextColor();
         }
 
-        return this.score + ' : ' + score;
+        return this.score;
     };
 
     TimeAttackGame.prototype.getTimeMs = function () {
@@ -91,6 +92,7 @@
             var remainTime = this.endTime - (new Date());
             if (remainTime <= 0) {
                 this.stop();
+                this.scoreBoardView.show(this.calcScore());
                 remainTime = 0;
             }
             return remainTime;
