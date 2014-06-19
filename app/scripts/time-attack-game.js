@@ -5,6 +5,7 @@
         this.gameView = new CP.GameView(canvas, video);
         this.scoreBoardView = scoreBoardView;
 
+        this.GAME_MODE_NAME = 'Time Attack Mode';
         this.TOTAL_TIME_MS = 1000 * 30; // 30 [min]
         this.SCORE_THRESH = 85;
 
@@ -92,7 +93,7 @@
             var remainTime = this.endTime - (new Date());
             if (remainTime <= 0) {
                 this.stop();
-                this.scoreBoardView.show(this.calcScore());
+                this.scoreBoardView.show(this.calcScore(), this.GAME_MODE_NAME);
                 remainTime = 0;
             }
             return remainTime;

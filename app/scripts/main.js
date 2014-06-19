@@ -8,6 +8,7 @@
             Parse.FacebookUtils.init({
                 appId      : CP.Config.facebook.appId,
                 status     : true,
+                cookie     : true,
                 xfbml      : true
             });
         };

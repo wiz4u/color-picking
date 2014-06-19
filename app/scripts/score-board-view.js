@@ -13,6 +13,7 @@
 
         this.user = Parse.User.current();
         this.score = 0;
+        this.gameMode = null;
     };
 
     ScoreBoardView.prototype.initialize = function () {
@@ -30,12 +31,14 @@
     ScoreBoardView.prototype.saveScore = function () {
         var scoreModel = new CP.Score();
         scoreModel.set('score', this.score);
+        scoreModel.set('gameMode', this.gameMode);
         scoreModel.set('user', this.user);
         scoreModel.save();
     };
 
-    ScoreBoardView.prototype.show = function (score) {
+    ScoreBoardView.prototype.show = function (score, gameMode) {
         this.score = score;
+        this.gameMode = gameMode;
 
         if (this.user) {
             this.$login.hide();
@@ -50,9 +53,10 @@
     };
 
     ScoreBoardView.prototype.onLogin = function () {
+        var self = this;
         var updateView = function () {
-            this.user = Parse.User.current();
-            this.show(this.score);
+            self.user = Parse.User.current();
+            self.show(self.score);
         };
 
         if (this.user && this.user.get('facebookId')) {
@@ -83,21 +87,61 @@
     };
 
     ScoreBoardView.prototype.onHistory = function () {
-        // fetch
+        var showMyScore = function () {
+
+        };
+
+        var showFriendsScore = function () {
+            // show
+            this.$element.removeClass('show').addClass('next');
+        };
+
+        // fetch my score
         var query = new Parse.Query(CP.Score);
+        query.equalTo('gameMode', this.gameMode);
         query.equalTo('user', this.user);
+        query.descending('score');
         query.find({
             success: function (result) {
-                window.alert('found ' + result.length + ' scores');
-                console.log(result);
+                console.log('found ' + result.length + ' scores');
+                showMyScore();
             },
             error: function () {
-                console.log('error');
+                showMyScore();
             }
         });
 
-        // show
-        this.$element.removeClass('show').addClass('next');
+        // fetch friends score
+        var self = this;
+        var friendIds = [this.user.get('facebookId')];
+        CP.FbUtil.getFriends(function (friends) {
+            for (var i = 0, l = friends.length; i < l; i++) {
+                var facebookId = friends[i].get('facebookId');
+                if (facebookId) {
+                    friendIds.push();
+                }
+            }
+
+            var userQuery = new Parse.Query(Parse.User);
+            userQuery.containedIn('facebookId', friendIds);
+            var scoreQuery = new Parse.Query(CP.Score);
+            scoreQuery.equalTo('gameMode', self.gameMode);
+            scoreQuery.matchesQuery('user', userQuery);
+            scoreQuery.descending('score');
+            scoreQuery.limit(10);
+            scoreQuery.find({
+                success: function (result) {
+                    showFriendsScore(result);
+                },
+                error: function () {
+                    console.log('error');
+                    showFriendsScore([]);
+                }
+            });
+        }, function () {
+            console.log('cannot get friends');
+            showFriendsScore([]);
+        });
     };
 
 
