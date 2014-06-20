@@ -148,12 +148,12 @@ footer {
     height: 100%;
     background-color: rgba(255, 255, 255, 0);
     text-align: center;
-    font-size: 6em;
+    font-size: 8rem;
     transition: background-color .3s;
     transition-delay: .3s;
 
     @media screen and (max-width: 768px) {
-        font-size: 3em;
+        font-size: 5rem;
     }
 
     .score-board-item {
@@ -215,6 +215,44 @@ footer {
             opacity: 0;
             visibility: visible;
         }
+
+        .score-board-history {
+            left: 0;
+        }
+    }
+
+    .score-board-history {
+        position: absolute;
+        left: 100%;
+        margin: 20px;
+        font-size: 5rem;
+        transition: left .5s;
+
+        @media screen and (max-width: 768px) {
+            margin: 10px;
+            font-size: 3rem;
+
+            h3 {
+                font-size: 18px;
+            }
+        }
+
+        h2 {
+            font-size: 5rem;
+
+            @media screen and (max-width: 768px) {
+                font-size: 3rem;
+            }
+        }
+
+        li > img {
+            width: 70px;
+
+            @media screen and (max-width: 768px) {
+                width: 40px;
+            }
+        }
+
     }
 }
 

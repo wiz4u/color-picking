@@ -52,6 +52,10 @@
         this.$element.addClass('show');
     };
 
+    ScoreBoardView.prototype.hide = function () {
+        this.$element.removeClass('show next');
+    };
+
     ScoreBoardView.prototype.onLogin = function () {
         var self = this;
         var updateView = function () {
@@ -87,13 +91,35 @@
     };
 
     ScoreBoardView.prototype.onHistory = function () {
-        var showMyScore = function () {
-
+        var self = this;
+        var showMyScore = function (scores) {
+            var $elements = $('.my-score-list').find('li');
+            for (var i = 0, l = scores.length; i < l; i++) {
+                $elements.eq(i).find('p').text(scores[i].get('score'));
+            }
         };
 
-        var showFriendsScore = function () {
+        var showFriendsScore = function (scores) {
+            var $elements = $('.all-score-list').find('li');
+            var setImage = function ($img, user) {
+                user.fetch({
+                    success: function (user) {
+                        var imageUrl = CP.FbUtil.getUserPictureUrl(user.get('facebookId'), 50, 50);
+                        $img.attr({src: imageUrl});
+                    }
+                });
+            };
+
+            for (var i = 0, l = scores.length; i < l; i++) {
+                var score = scores[i];
+                $elements.eq(i).find('p').text(score.get('score'));
+
+                var $img = $elements.eq(i).find('img');
+                setImage($img, score.get('user'));
+            }
+
             // show
-            this.$element.removeClass('show').addClass('next');
+            self.$element.removeClass('show').addClass('next');
         };
 
         // fetch my score
@@ -101,13 +127,14 @@
         query.equalTo('gameMode', this.gameMode);
         query.equalTo('user', this.user);
         query.descending('score');
+        query.limit(5);
         query.find({
             success: function (result) {
                 console.log('found ' + result.length + ' scores');
-                showMyScore();
+                showMyScore(result);
             },
             error: function () {
-                showMyScore();
+                showMyScore([]);
             }
         });
 
@@ -128,7 +155,7 @@
             scoreQuery.equalTo('gameMode', self.gameMode);
             scoreQuery.matchesQuery('user', userQuery);
             scoreQuery.descending('score');
-            scoreQuery.limit(10);
+            scoreQuery.limit(5);
             scoreQuery.find({
                 success: function (result) {
                     showFriendsScore(result);

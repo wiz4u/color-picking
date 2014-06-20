@@ -48,6 +48,7 @@
         this.endTime = null;
         this.score = 0;
         this.setNextColor();
+        this.scoreBoardView.hide();
         this.$mainButton.addClass('disable');
 
         var self = this;
