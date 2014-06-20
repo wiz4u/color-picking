@@ -139,14 +139,10 @@
         });
 
         // fetch friends score
-        var self = this;
         var friendIds = [this.user.get('facebookId')];
         CP.FbUtil.getFriends(function (friends) {
             for (var i = 0, l = friends.length; i < l; i++) {
-                var facebookId = friends[i].get('facebookId');
-                if (facebookId) {
-                    friendIds.push();
-                }
+                friendIds.push(friends[i].id);
             }
 
             var userQuery = new Parse.Query(Parse.User);
