@@ -10,6 +10,7 @@
         this.updatePickingColor = false;
         this.colorString = 'rgba(0, 0, 0, 1)';
         this.pickingColor = {r: 0, g: 0, b: 0};
+        this.scoreRatio = 1.0;
 
         this.layout();
     };
@@ -48,6 +49,8 @@
         var cS = this.canvas.width;
         var centerX = this.canvas.width / 2;
         var centerY = this.canvas.height / 2;
+        var PI_90 = Math.PI * 0.5;
+        var PI_360 = Math.PI * 2;
 
         // crop camera center
         if (this.video.videoWidth && this.video.videoHeight) {
@@ -64,7 +67,7 @@
         if (this.showColor) {
             ctx.fillStyle = this.colorString;
             ctx.beginPath();
-            ctx.arc(centerX, centerY, cS / 3, 0, Math.PI * 2);
+            ctx.arc(centerX, centerY, cS / 3, 0, PI_360);
             ctx.rect(cS, 0, -1 * cS, cS);
             ctx.fill();
         }
@@ -73,19 +76,27 @@
         if (this.showColor) {
             var radius = Math.floor(cS / 15);
 
+            // draw current color
             if (this.updatePickingColor) {
                 this.pickingColor = getCenterColor(ctx, centerX, centerY, radius);
             }
-
             ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.arc(centerX, centerY, radius, 0, PI_360);
             ctx.fillStyle = CP.ColorUtil.buildColorString(this.pickingColor);
             ctx.fill();
 
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-            ctx.lineWidth = 10;
+            // draw sore indicator
             ctx.strokeStyle = this.colorString;
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, -PI_90, PI_360 - PI_90);
+            ctx.arc(centerX, centerY, radius + 10, -PI_90, PI_360 - PI_90);
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius + 5, -PI_90, PI_360 * this.scoreRatio - PI_90);
+            ctx.lineWidth = 10;
             ctx.stroke();
         }
     };
@@ -113,6 +124,10 @@
 
     GameView.prototype.setColor = function (color) {
         this.colorString = CP.ColorUtil.buildColorString(color);
+    };
+
+    GameView.prototype.setScoreRatio = function (ratio) {
+        this.scoreRatio = ratio;
     };
 
     GameView.prototype.getPickingColor = function () {

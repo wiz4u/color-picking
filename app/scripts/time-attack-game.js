@@ -7,7 +7,7 @@
 
         this.GAME_MODE_NAME = 'Time Attack Mode';
         this.TOTAL_TIME_MS = 1000 * 30; // 30 [min]
-        this.SCORE_THRESH = 85;
+        this.SCORE_THRESH = 80;
 
         this.endTime = null;
         this.score = 0;
@@ -40,6 +40,16 @@
     };
 
     TimeAttackGame.prototype.update = function () {
+        var pickingColor = this.gameView.getPickingColor();
+        var score = CP.ColorUtil.calcColorDistance(this.color, pickingColor);
+        var scoreRatio = 0;
+        if (score > this.SCORE_THRESH) {
+            scoreRatio = 1.0;
+        } else {
+            scoreRatio = score / this.SCORE_THRESH;
+        }
+        this.gameView.setScoreRatio(scoreRatio);
+
         this.gameView.update();
     };
 
