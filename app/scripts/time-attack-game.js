@@ -40,6 +40,16 @@
     };
 
     TimeAttackGame.prototype.update = function () {
+        var pickingColor = this.gameView.getPickingColor();
+        var score = CP.ColorUtil.calcColorDistance(this.color, pickingColor);
+        var scoreRatio = 0;
+        if (score > this.SCORE_THRESH) {
+            scoreRatio = 1.0;
+        } else {
+            scoreRatio = score / this.SCORE_THRESH;
+        }
+        this.gameView.setScoreRatio(scoreRatio);
+
         this.gameView.update();
     };
 
