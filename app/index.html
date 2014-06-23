@@ -74,8 +74,8 @@
                         <p id="score" class="game-text">Score :</p>
                         <p id="elapsed_time" class="game-text">0.00</p>
                         <div id="score_board">
-                            <p class="score-board-item score-board-item-top">High Score</p>
-                            <p class="score-board-item score-board-item-middle score-board-score">111</p>
+                            <p class="score-board-item score-board-item-top">Score</p>
+                            <p class="score-board-item score-board-item-middle score-board-score">---</p>
                             <div class="score-board-item score-board-item-bottom">
                                 <a class="btn btn-lg btn-primary btn-login"><i class="fa fa-facebook-square"></i> LogIn & Save</a>
                                 <a class="btn btn-lg btn-primary btn-history">History <i class="fa fa-chevron-right fa-inverse"></i></a>
@@ -83,7 +83,7 @@
                             <!-- history -->
                             <div class="score-board-history">
                                 <div class="col-xs-12">
-                                    <h2>Time Attack Mode<h2>
+                                    <h2 class="game-mode">---<h2>
                                 </div>
                                 <div class="col-xs-4">
                                     <h3>You</h3>
@@ -151,13 +151,13 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="feedback_browser_type">Browser</label>
+                                    <label for="feedback_browser_type">Choose your browser</label>
                                     <select id="feedback_browser_type" class="form-control">
                                     </select>
                                 </div>
                                 <div class="form-groupt">
-                                    <label for="feedback_free_text">Free text</label>
-                                    <textarea id="feedback_free_text" class="form-control" rows="3"></textarea>
+                                    <label for="feedback_free_text">Leave us a comment</label>
+                                    <textarea id="feedback_free_text" class="form-control" rows="3" placehold=""></textarea>
                                 </div>
                             </form>
                         </div>
