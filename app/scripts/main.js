@@ -55,6 +55,9 @@
     // score board
     var scoreBoardView = new CP.ScoreBoardView(document.getElementById('score_board')).initialize();
 
+    // feedback
+    new CP.FeedbackView().initialize().render();
+
     // game
     var game = null;
     var gameSimple = new CP.SimpleGame(
