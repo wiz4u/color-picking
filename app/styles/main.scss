@@ -342,7 +342,7 @@ $button-text-disabled-color: lighten($button-text-color, 5%);
     .change-camera {
         top: 75px;
         margin-top: -1em;
-        margin-left: 10px;
+        margin-left: -10px;
 
         .fa-refresh {
             color: #ddd;
@@ -357,6 +357,7 @@ $button-text-disabled-color: lighten($button-text-color, 5%);
         position: relative;
         top: 75px;
         margin-top: -1em;
+        margin-right: -10px;
         color: rgba(255, 128, 64, 1);
 
         &:after {
