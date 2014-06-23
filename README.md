@@ -7,9 +7,15 @@ to look for the intended color using the camera.
 
 
 ## Supported Browser
-- Chrome on Android (best :smile:)
-- Chrome on Mac
-- Firefox on Mac
+- :satisfied: Best
+    - Chrome on Android
+- :smile: Good
+    - Chrome on Mac
+    - Firefox on Mac
+- :cry: Bad
+    - Chrome Beta on Android
+- :shit:
+    - iOS
 
 ## License
 
