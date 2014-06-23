@@ -92,6 +92,10 @@
 
     ScoreBoardView.prototype.onHistory = function () {
         var self = this;
+
+        // show game mode
+        this.$element.find('.game-mode').text(this.gameMode);
+
         var showMyScore = function (scores) {
             var $elements = $('.my-score-list').find('li');
             for (var i = 0, l = scores.length; i < l; i++) {
