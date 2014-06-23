@@ -4,7 +4,7 @@
     var FeedbackView = function () {};
 
     var BROWSER_TYPES = [
-        'Android : Defautl Browser',
+        'Android : Default Browser',
         'Android : Chrome',
         'Android : Chrome Beta',
         'Android : Firefox',
