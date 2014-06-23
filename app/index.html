@@ -141,6 +141,34 @@
                 </div>
             </div>
 
+            <div id="feedback_modal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Feedback</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="feedback_browser_type">Browser</label>
+                                    <select id="feedback_browser_type" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="form-groupt">
+                                    <label for="feedback_free_text">Free text</label>
+                                    <textarea id="feedback_free_text" class="form-control" rows="3"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary feedback_send">Send Feedback</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
             <footer>
                 <p>&copy; 2014 <a href="//twitter.com/yaeda">@yaeda</a></p>
             </footer>
@@ -186,11 +214,13 @@
         <script src="scripts/fb-util.js"></script>
         <script src="scripts/color-util.js"></script>
         <script src="scripts/model/score.js"></script>
+        <script src="scripts/model/feedback.js"></script>
         <script src="scripts/camera.js"></script>
         <script src="scripts/simple-game.js"></script>
         <script src="scripts/time-attack-game.js"></script>
         <script src="scripts/game-view.js"></script>
         <script src="scripts/score-board-view.js"></script>
+        <script src="scripts/feedback-view.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>
