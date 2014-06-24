@@ -60,7 +60,7 @@
         var self = this;
         var updateView = function () {
             self.user = Parse.User.current();
-            self.show(self.score);
+            self.show(self.score, self.gameMode);
         };
 
         if (this.user && this.user.get('facebookId')) {
