@@ -64,7 +64,6 @@
         };
 
         if (this.user && this.user.get('facebookId')) {
-            window.alert('[Debug] already logged in');
             updateView();
         } else {
             Parse.FacebookUtils.logIn('public_profile,user_friends', {
@@ -77,14 +76,11 @@
                                 user.save();
                             }
                         });
-                        window.alert('[Debug] User signed up and logged in through Facebook!');
-                    } else {
-                        window.alert('[Debug] User logged in through Facebook!');
                     }
                     updateView();
                 },
                 error: function(/*user, error*/) {
-                    console.log('[Debug] User cancelled the Facebook login or did not fully authorize.');
+                    window.alert('cancelled the Facebook login or did not fully authorize.');
                 }
             });
         }
