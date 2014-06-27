@@ -1,0 +1,18 @@
+{
+  "name": "Color Picking",
+  "description": "Color Picking is a game to look for the intended color using the camera.",
+  "launch_path": "/index.html",
+  "orientation": "portrait-primary",
+  "fullscreen": true,
+  "developer": {
+    "name": "Takeshi Yaeda",
+    "url": "https://github.com/wiz4u/color-picking"
+  },
+  "permissions": {
+    "camera":{}
+  },
+  "default_locale": "en",
+  "icons": {
+    "128": "/images/icon-128.png"
+  }
+}
