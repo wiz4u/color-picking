@@ -13,6 +13,7 @@
         'Android : Opera Mini',
         'Android : Opera Beta',
         'Android : Another one',
+        'Firefox OS',
         'iOS',
         'Mac OS',
         'Windows',
