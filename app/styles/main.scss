@@ -97,17 +97,17 @@ footer {
     }
 
     .count-pane:nth-child(3n+2) {
-        animation-delay: .5s;
+        animation-delay: .6s;
     }
 
     .count-pane:nth-child(3n+1) {
-        animation-delay: 1s;
+        animation-delay: 1.2s;
     }
 }
 
 @keyframes fade-dezoom-in {
-    from { transform: scale(5); opacity: 0; }
-    to   { transform: scale(1); opacity: 1;}
+    from { transform: scale(0.5); opacity: 0; }
+    to   { transform: scale(2.0); opacity: 1; }
 }
 
 .game-text {
