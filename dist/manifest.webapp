@@ -9,7 +9,6 @@
     "url": "https://github.com/wiz4u/color-picking"
   },
   "permissions": {
-    "camera":{}
   },
   "default_locale": "en",
   "icons": {
