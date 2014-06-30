@@ -3,14 +3,6 @@
 (function (CP) {
     'use strict';
 
-    // Firefox OS
-    if (navigator.mozApps && navigator.mozApps.installPackage) {
-        var baseUrl = location.href.slice(0, location.href.lastIndexOf('/'));
-        var manifestUrl = baseUrl + '/manifest.webapp';
-        alert(manifestUrl);
-        navigator.mozApps.installPackage(manifestUrl);
-    }
-
     var setUpFb = function () {
         window.fbAsyncInit = function() {
             Parse.FacebookUtils.init({
