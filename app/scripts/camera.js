@@ -13,6 +13,8 @@
         this.currentVideoSourceInfoIndex = 0;
         this.currentAudioSourceInfoIndex = 0;
 
+        this.isDisabled = false;
+
         var self = this;
         var _callback = callback || function () {};
         var _gotSources = function (sourceInfos) {
@@ -65,7 +67,7 @@
 
         var _errorCallback = function (error) {
             console.log('navigator.getUserMedia error:', error);
-
+            self.isDisabled = true;
             if (errorCallback) {
                 errorCallback();
             }
@@ -96,7 +98,11 @@
     };
 
     Camera.prototype.getNumCameras = function () {
-        return this.videoSourceInfo.length !== 0 ? this.videoSourceInfo.length : 1;
+        if (this.isDisabled) {
+            return 0;
+        } else {
+            return this.videoSourceInfo.length !== 0 ? this.videoSourceInfo.length : 1;
+        }
     };
 
     Camera.prototype.changeCamera = function () {

@@ -1,8 +1,9 @@
 (function (CP) {
     'use strict';
 
-    var TimeAttackGame = function (canvas, video, scoreBoardView) {
-        this.gameView = new CP.GameView(canvas, video);
+    var TimeAttackGame = function (camera, canvas, scoreBoardView) {
+        this.camera = camera;
+        this.gameView = new CP.GameView(canvas, camera.getElement());
         this.scoreBoardView = scoreBoardView;
 
         this.GAME_MODE_NAME = 'Time Attack Mode';
@@ -54,6 +55,10 @@
     };
 
     TimeAttackGame.prototype.start = function () {
+        if (this.camera.getNumCameras() === 0) {
+            return;
+        }
+
         // initialize
         this.endTime = null;
         this.score = 0;
