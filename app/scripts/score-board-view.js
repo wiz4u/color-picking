@@ -11,7 +11,6 @@
         this._onLogin = this.onLogin.bind(this);
         this._onHistory = this.onHistory.bind(this);
 
-        this.user = Parse.User.current();
         this.score = 0;
         this.gameMode = null;
     };
@@ -29,10 +28,11 @@
     };
 
     ScoreBoardView.prototype.saveScore = function () {
+        var user = Parse.User.current();
         var scoreModel = new CP.Score();
         scoreModel.set('score', this.score);
         scoreModel.set('gameMode', this.gameMode);
-        scoreModel.set('user', this.user);
+        scoreModel.set('user', user);
         scoreModel.save();
     };
 
@@ -40,14 +40,14 @@
         this.score = score;
         this.gameMode = gameMode;
 
-        if (this.user) {
-            if (this.user.get('facebookId')) {
+        var user = Parse.User.current();
+        if (user) {
+            if (user.get('facebookId')) {
                 this.$login.hide();
                 this.$history.show();
                 this.saveScore();
             } else {
                 Parse.User.logOut();
-                this.user = undefined;
                 this.$login.show();
                 this.$history.hide();
             }
@@ -66,11 +66,11 @@
     ScoreBoardView.prototype.onLogin = function () {
         var self = this;
         var updateView = function () {
-            self.user = Parse.User.current();
             self.show(self.score, self.gameMode);
         };
 
-        if (this.user && this.user.get('facebookId')) {
+        var user = Parse.User.current();
+        if (user && user.get('facebookId')) {
             updateView();
         } else {
             Parse.FacebookUtils.logIn('public_profile,user_friends', {
@@ -129,10 +129,11 @@
             self.$element.removeClass('show').addClass('next');
         };
 
+        var user = Parse.User.current();
         // fetch my score
         var query = new Parse.Query(CP.Score);
         query.equalTo('gameMode', this.gameMode);
-        query.equalTo('user', this.user);
+        query.equalTo('user', user);
         query.descending('score');
         query.limit(5);
         query.find({
@@ -146,7 +147,7 @@
         });
 
         // fetch friends score
-        var friendIds = [this.user.get('facebookId')];
+        var friendIds = [user.get('facebookId')];
         CP.FbUtil.getFriends(function (friends) {
             for (var i = 0, l = friends.length; i < l; i++) {
                 friendIds.push(friends[i].id);
