@@ -8,7 +8,7 @@
 
         this.GAME_MODE_NAME = 'Time Attack Mode';
         this.TOTAL_TIME_MS = 1000 * 30; // 30 [sec]
-        this.SCORE_THRESH = 80;
+        this.SCORE_THRESH = 75;
 
         this.endTime = null;
         this.score = 0;
