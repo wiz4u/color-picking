@@ -11,13 +11,13 @@ to look for the intended color using the camera.
 ## Supported Browser
 - :satisfied: Best
     - Chrome on Android
+    - Firefox on Android
 - :smile: Good
+    - Default browser on Firefox OS
     - Chrome on Mac
     - Firefox on Mac
-- :cry: Bad
-    - Chrome Beta on Android
-- :shit:
-    - iOS
+
+iOS device is not supproted.
 
 ## License
 
