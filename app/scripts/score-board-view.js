@@ -41,9 +41,16 @@
         this.gameMode = gameMode;
 
         if (this.user) {
-            this.$login.hide();
-            this.$history.show();
-            this.saveScore();
+            if (this.user.get('facebookId')) {
+                this.$login.hide();
+                this.$history.show();
+                this.saveScore();
+            } else {
+                Parse.User.logOut();
+                this.user = undefined;
+                this.$login.show();
+                this.$history.hide();
+            }
         } else {
             this.$login.show();
             this.$history.hide();
