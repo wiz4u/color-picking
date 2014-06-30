@@ -5,8 +5,10 @@
 
     // Firefox OS
     if (navigator.mozApps && navigator.mozApps.installPackage) {
-        var manifestFile = '/manifest.webapp';
-        navigator.mozApps.installPackage(manifestFile);
+        var baseUrl = location.href.slice(0, location.href.lastIndexOf('/'));
+        var manifestUrl = baseUrl + '/manifest.webapp';
+        alert(manifestUrl);
+        navigator.mozApps.installPackage(manifestUrl);
     }
 
     var setUpFb = function () {
