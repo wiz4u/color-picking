@@ -1,3 +1,6 @@
+## 0.3.1 (June 30 2014)
+- Fix a bug (image path)
+
 ## 0.3.0 (June 30 2014)
 - Application Icon
 - Disable simple mode
