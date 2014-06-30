@@ -52,10 +52,15 @@
 
     // camera
     var camera = new CP.Camera(null, function () {
-        camera.initialize();
-        if (camera.getNumCameras() === 1) {
-            $('.change-camera').hide();
-        }
+        camera.initialize(function () {
+            if (camera.getNumCameras() < 2) {
+                $('.change-camera').hide();
+            }
+        }, function () {
+            if (game) {
+                game.stop();
+            }
+        });
     });
 
     // score board
@@ -73,8 +78,8 @@
     );
 
     var gameTA = new CP.TimeAttackGame(
+        camera,
         document.getElementById('game_view'),
-        camera.getElement(),
         scoreBoardView
     );
 

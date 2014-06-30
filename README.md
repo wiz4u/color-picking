@@ -1,10 +1,12 @@
 # Color Picking
-*Let's look anew at the world around you*
+<img align="right" src="app/images/icon_128x128.png"/>
 
+*Let's look anew at the world around you*
 
 **[Color Picking](http://wiz4u.github.io/color-picking/)** is a game
 to look for the intended color using the camera.
 
+<br/>
 
 ## Supported Browser
 - :satisfied: Best

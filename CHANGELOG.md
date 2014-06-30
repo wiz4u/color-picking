@@ -1,3 +1,8 @@
+## 0.3.0 (June 30 2014)
+- Application Icon
+- Disable simple mode
+- Fix some bugs
+
 ## 0.2.0 (June 24 2014)
 - Score calculation Improvement
 - Firefox browser support (Mac)
