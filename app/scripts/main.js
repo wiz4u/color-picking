@@ -81,17 +81,17 @@
 
     // button behavior
     var $changeCamera = $('.change-camera');
-    var $switchSimpleMode = $('.switch-simple-mode');
-    var $switchTAMode = $('.switch-ta-mode');
+    var $logout = $('.logout');
 
     // change camera button
     $changeCamera.on('click', function() {
         camera.changeCamera();
     });
 
-    // change game mode
-    $switchSimpleMode.on('click', setGame.bind(null, gameSimple));
-    $switchTAMode.on('click', setGame.bind(null, gameTA));
+    // logout
+    $logout.on('click', function () {
+        Parse.User.logOut();
+    });
 
     // update
     var requestId = null;
