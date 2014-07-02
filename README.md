@@ -17,7 +17,7 @@ to look for the intended color using the camera.
     - Chrome on Mac
     - Firefox on Mac
 
-iOS device is not supproted.
+iOS device is not supported.
 
 ## License
 

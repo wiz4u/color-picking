@@ -1,7 +1,7 @@
 {
   "name": "Color Picking",
   "description": "Color Picking is a game to look for the intended color using the camera.",
-  "launch_path": "/index.html",
+  "launch_path": "/color-picking/index.html",
   "orientation": "portrait-primary",
   "fullscreen": true,
   "developer": {
@@ -12,7 +12,7 @@
   },
   "default_locale": "en",
   "icons": {
-    "128": "/images/icon_128x128.png",
-    "60": "/images/icon_60x60.png"
+    "128": "/color-picking/images/icon_128x128.png",
+    "60": "/color-picking/images/icon_60x60.png"
   }
 }
