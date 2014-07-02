@@ -1,3 +1,7 @@
+## 0.3.2 (June 30 2014)
+- Add logout button
+- Enable to install (Firefox Browser/OS)
+
 ## 0.3.1 (June 30 2014)
 - Fix a bug (image path)
 
