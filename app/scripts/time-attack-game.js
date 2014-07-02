@@ -7,7 +7,7 @@
         this.scoreBoardView = scoreBoardView;
 
         this.GAME_MODE_NAME = 'Time Attack Mode';
-        this.TOTAL_TIME_MS = 1000 * 1; // 30 [sec]
+        this.TOTAL_TIME_MS = 1000 * 30; // 30 [sec]
         this.SCORE_THRESH = 75;
 
         this.endTime = null;
