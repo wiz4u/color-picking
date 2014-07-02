@@ -3,6 +3,27 @@
 (function (CP) {
     'use strict';
 
+    // Firefox OS
+    if (navigator.mozApps) {
+        var reqSelf = navigator.mozApps.getSelf();
+        reqSelf.onsuccess = function () {
+            if (!reqSelf.result) { // not installed
+                var baseUrl = location.href;
+                var manifestUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/')) + '/manifest.webapp';
+                var reqInstall = navigator.mozApps.install(manifestUrl);
+                reqInstall.onsuccess = function () {
+                    window.alert('success to install');
+                };
+                reqInstall.onerror = function () {
+                    window.alert('failed to install: ' + this.error.message);
+                };
+            }
+        };
+        reqSelf.onerror = function () {
+            window.alert('an error occured while checking install status:' + this.error.message);
+        };
+    }
+
     var setUpFb = function () {
         window.fbAsyncInit = function() {
             Parse.FacebookUtils.init({
