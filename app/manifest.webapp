@@ -9,6 +9,12 @@
     "url": "https://github.com/wiz4u/color-picking"
   },
   "permissions": {
+    "video-capture": {
+      "description": "Required to capture video via getUserMedia"
+    },
+    "audio-capture": {
+      "description": "Required to capture audio via getUserMedia"
+    }
   },
   "default_locale": "en",
   "icons": {
