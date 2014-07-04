@@ -14,7 +14,8 @@
     },
     "audio-capture": {
       "description": "Required to capture audio via getUserMedia"
-    }
+    },
+    "camera": {}
   },
   "default_locale": "en",
   "icons": {
