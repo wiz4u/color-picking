@@ -15,7 +15,9 @@
     "audio-capture": {
       "description": "Required to capture audio via getUserMedia"
     },
-    "camera": {}
+    "camera": {
+      "description": "for permission test"
+    }
   },
   "default_locale": "en",
   "icons": {
