@@ -1,3 +1,6 @@
+## 0.3.3 (July 13 2014)
+- Fix bugs on FxOS
+
 ## 0.3.2 (June 30 2014)
 - Add logout button
 - Enable to install (Firefox Browser/OS)
